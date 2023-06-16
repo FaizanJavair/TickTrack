@@ -1,29 +1,31 @@
 import React from "react";
 import { SafeAreaView, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { auth } from "../database/firebase";
+import TabNav from "../components/TabNavigation";
 const Home = ({ navigation }) => {
-  const handleLogout = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigation.replace("Login");
-      })
-      .catch((error) => alert(error.message));
-  };
+  // const handleLogout = () => {
+  //   auth
+  //     .signOut()
+  //     .then(() => {
+  //       navigation.replace("Login");
+  //     })
+  //     .catch((error) => alert(error.message));
+  // };
   return (
-    <SafeAreaView>
-      <Text style={styles.container}>Hello</Text>
-      <Text style={styles.container}>
-        Display Name: {auth.currentUser?.displayName}
-      </Text>
-      <TouchableOpacity
-        style={styles.logButton}
-        activeOpacity={0.5}
-        onPress={handleLogout}
-      >
-        <Text style={styles.logText}>Logout</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+    // <SafeAreaView>
+    //   <Text style={styles.container}>Hello</Text>
+    //   <Text style={styles.container}>
+    //     Display Name: {auth.currentUser?.displayName}
+    //   </Text>
+    //   <TouchableOpacity
+    //     style={styles.logButton}
+    //     activeOpacity={0.5}
+    //     onPress={handleLogout}
+    //   >
+    //     <Text style={styles.logText}>Logout</Text>
+    //   </TouchableOpacity>
+    // </SafeAreaView>
+    <TabNav></TabNav>
   );
 };
 
