@@ -12,24 +12,18 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { auth } from "../database/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
-const Login = ({ navigation }) => {
+const Register = ({ navigation }) => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setLoggedIn(true);
-      navigation.replace("Home");
-    } else {
-      setLoggedIn(false);
-    }
-  });
-
-  const handleLogin = () => {
+  const handleRegister = () => {
     setError("");
+    if (!username) {
+      alert("Please fill name");
+      return;
+    }
     if (!email) {
       alert("Please fill Email");
       return;
@@ -39,17 +33,43 @@ const Login = ({ navigation }) => {
       return;
     }
     auth
-      .signInWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("Logged in with:", user.email);
+      .createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        console.log("Registration Successful. Please Login to proceed");
+        console.log(user);
+        if (user) {
+          auth.currentUser
+            .updateProfile({
+              displayName: username,
+            })
+            .then(() => navigation.navigate("Login"))
+            .catch((error) => {
+              alert(error);
+              console.error(error);
+            });
+        }
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => {
+        console.log(error);
+        if (error.code === "auth/email-already-in-use") {
+          setError("That email address is already in use!");
+        } else {
+          setError(error.message);
+        }
+      });
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView behavior="padding">
+      <KeyboardAvoidingView enabled>
+        <View style={styles.section}>
+          <TextInput
+            style={styles.inputStyle}
+            placeholder="Name"
+            onChangeText={(text) => setUsername(text)}
+            returnKeyType="next"
+          />
+        </View>
         <View style={styles.section}>
           <TextInput
             style={styles.inputStyle}
@@ -75,15 +95,15 @@ const Login = ({ navigation }) => {
         <TouchableOpacity
           style={styles.logButton}
           activeOpacity={0.5}
-          onPress={handleLogin}
+          onPress={handleRegister}
         >
-          <Text style={styles.logText}>Login</Text>
+          <Text style={styles.logText}>Register</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.logButton}
-          onPress={() => navigation.navigate("Register")}
+          onPress={() => navigation.navigate("Login")}
         >
-          <Text style={styles.logText}>Register</Text>
+          <Text style={styles.logText}>Login</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -134,4 +154,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 });
-export default Login;
+export default Register;
