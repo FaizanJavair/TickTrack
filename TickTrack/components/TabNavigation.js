@@ -3,14 +3,33 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Settings from "../screens/settings";
 import Weather from "../screens/weather";
+import Tasks from "../screens/todo";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Tab = createBottomTabNavigator();
 
 const TabNav = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Settings" component={Settings} />
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color }) => {
+          let icon;
+          if (route.name === "Tasks") {
+            icon = focused ? "list" : "list-outline";
+          } else if (route.name === "Weather") {
+            icon = focused ? "rainy" : "rainy-outline";
+          } else if (route.name === "Settings") {
+            icon = focused ? "settings" : "settings-outline";
+          }
+          return <Ionicons name={icon} style={{ fontSize: 25 }} />;
+        },
+        tabBarActiveTintColor: "black",
+        tabBarInactiveTintColor: "gray",
+      })}
+    >
+      <Tab.Screen name="Tasks" component={Tasks} anim />
       <Tab.Screen name="Weather" component={Weather} />
+      <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
 };
