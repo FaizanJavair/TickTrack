@@ -1,7 +1,7 @@
 export default dataTemp = [
   {
     name: "Plan a Party",
-    color: "#24A6D9",
+    color: "#414a4c",
     todos: [
       {
         title: "Book food",
@@ -19,7 +19,7 @@ export default dataTemp = [
   },
   {
     name: "Errands",
-    color: "#8022D9",
+    color: "#71797E",
     todos: [
       {
         title: "Wash Clothes",
@@ -36,8 +36,8 @@ export default dataTemp = [
     ],
   },
   {
-    name: "Err",
-    color: "#3000D9",
+    name: "Tasking",
+    color: "#36454F",
     todos: [
       {
         title: "Wash Clothes",
@@ -54,8 +54,8 @@ export default dataTemp = [
     ],
   },
   {
-    name: "Erra",
-    color: "#3000D9",
+    name: "More Task",
+    color: "#28282B",
     todos: [
       {
         title: "Wash Clothes",

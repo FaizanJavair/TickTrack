@@ -21,6 +21,9 @@ export default class Tasks extends React.Component {
   toggleModal() {
     this.setState({ addTodo: !this.state.addTodo });
   }
+  renderTasks = (task) => {
+    return <Todolist list={task}></Todolist>;
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -37,7 +40,7 @@ export default class Tasks extends React.Component {
           keyExtractor={(item) => item.name}
           showsVerticalScrollIndicator={false}
           scrollEnabled={true}
-          renderItem={({ item }) => <Todolist list={item}></Todolist>}
+          renderItem={({ item }) => this.renderTasks(item)}
         />
 
         <TouchableOpacity

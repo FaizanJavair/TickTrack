@@ -27,7 +27,7 @@ const TabNav = () => {
         tabBarInactiveTintColor: "gray",
       })}
     >
-      <Tab.Screen name="Tasks" component={Tasks} anim />
+      <Tab.Screen name="Tasks" component={Tasks} />
       <Tab.Screen name="Weather" component={Weather} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
