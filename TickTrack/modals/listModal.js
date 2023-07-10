@@ -27,12 +27,9 @@ export default class ListModal extends React.Component {
   };
 
   createList = () => {
-    const { name, color } = this.state;
-    dataTemp.push({
-      name,
-      color,
-      todos: [],
-    });
+    const { name, color, todos } = this.state;
+    const list = { name, color };
+    this.props.addTask(list);
 
     this.setState({ name: "" });
     this.props.closeModal();

@@ -14,9 +14,7 @@ const Settings = ({ navigation }) => {
   return (
     <SafeAreaView>
       <Text style={styles.container}>Hello</Text>
-      <Text style={styles.container}>
-        Display Name: {auth.currentUser?.displayName}
-      </Text>
+      <Text style={styles.container}>Display Name: {auth.currentUser.uid}</Text>
       <TouchableOpacity
         style={styles.logButton}
         activeOpacity={0.5}

@@ -1,5 +1,6 @@
 export default dataTemp = [
   {
+    id: 1,
     name: "Plan a Party",
     color: "#414a4c",
     todos: [
@@ -18,6 +19,7 @@ export default dataTemp = [
     ],
   },
   {
+    id: 2,
     name: "Errands",
     color: "#71797E",
     todos: [
@@ -36,24 +38,26 @@ export default dataTemp = [
     ],
   },
   {
-    name: "Tasking",
+    id: 3,
+    name: "My Homework",
     color: "#36454F",
     todos: [
       {
-        title: "Wash Clothes",
+        title: "Maths",
         completed: false,
       },
       {
-        title: "Pick up grocery",
+        title: "Science",
         completed: true,
       },
       {
-        title: "Make Lunch",
+        title: "History",
         completed: false,
       },
     ],
   },
   {
+    id: 4,
     name: "More Task",
     color: "#28282B",
     todos: [
