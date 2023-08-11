@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import DropDownPicker from "react-native-dropdown-picker";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import dataTemp from "../data";
 export default class ListModal extends React.Component {
@@ -21,14 +22,25 @@ export default class ListModal extends React.Component {
     "#B2BEB5",
   ];
 
+  items = [
+    { label: "Critical", value: "1" },
+    { label: "High", value: "2" },
+    { label: "Medium", value: "3" },
+    { label: "Low", value: "4" },
+  ];
+
   state = {
     name: "",
     color: this.colors[0],
+    open: false,
+    value: null,
+    priority: "Low",
+    priorityValue: "4",
   };
 
   createList = () => {
-    const { name, color, todos } = this.state;
-    const list = { name, color };
+    const { name, color, priority, priorityValue, todos } = this.state;
+    const list = { name, color, priority, priorityValue };
     this.props.addTask(list);
 
     this.setState({ name: "" });
@@ -48,6 +60,7 @@ export default class ListModal extends React.Component {
   }
 
   render() {
+    console.log(this.state.priority);
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <TouchableOpacity
@@ -65,6 +78,16 @@ export default class ListModal extends React.Component {
             onChangeText={(text) => this.setState({ name: text })}
           />
           <View style={styles.colorView}>{this.renderColors()}</View>
+          <DropDownPicker
+            style={styles.picker}
+            open={this.state.open}
+            onOpen={() => this.setState({ open: true })}
+            onClose={() => this.setState({ open: false })}
+            items={this.items}
+            onSelectItem={(value) => this.setState({ priority: value.label })}
+            placeholder={this.state.priority}
+            // setValue={(value) => this.setState({ priority: value })}
+          />
           <TouchableOpacity
             style={[
               styles.createButton,
@@ -133,5 +156,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: "6%",
+  },
+  picker: {
+    marginTop: "5%",
+    borderColor: "#dadae8",
+    borderStyle: "solid",
+    borderWidth: 1.5,
+    borderRadius: 12,
   },
 });

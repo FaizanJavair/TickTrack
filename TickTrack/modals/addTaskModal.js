@@ -9,22 +9,57 @@ import {
   KeyboardAvoidingView,
   TextInput,
   Keyboard,
+  Button,
 } from "react-native";
+import uuid from "react-native-uuid";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 export default class AddTask extends React.Component {
   state = {
     newTodo: "",
+    dueDate: "",
+    date: new Date(),
+    show: false,
+    text: "",
   };
+
+  onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || this.state.date;
+    this.setState({ date: currentDate });
+    this.setState({ show: Platform.OS === "ios" });
+    let tempDate = new Date(currentDate);
+    let fDate =
+      tempDate.getDate() +
+      "/" +
+      (tempDate.getMonth() + 1) +
+      "/" +
+      tempDate.getFullYear();
+    this.setState({ text: fDate });
+  };
+
+  showMode = () => {
+    this.setState({
+      show: true,
+    });
+  };
+
   addTask = () => {
     const list = this.props.list;
-    list.todos.push({ title: this.state.newTodo, completed: false });
+    list.todos.push({
+      id: uuid.v1(),
+      title: this.state.newTodo,
+      completed: false,
+      dueDate: this.state.dueDate,
+    });
     this.props.updateList(list);
     this.setState({ newTodo: "" });
     Keyboard.dismiss();
   };
 
   render() {
+    console.log(this.state.dueDate);
     const list = this.props.list;
     return (
       <View style={styles.container}>
@@ -41,6 +76,31 @@ export default class AddTask extends React.Component {
             onChangeText={(text) => this.setState({ newTodo: text })}
             value={this.state.newTodo}
           />
+          <Text>{this.state.text}</Text>
+          <View>
+            <Button
+              title="Date Picker"
+              onPress={() =>
+                this.setState({
+                  show: true,
+                })
+              }
+            />
+
+            <RNDateTimePicker
+              testID="dateTimePicker"
+              value={this.state.date}
+              minimumDate={new Date()}
+              mode="date"
+              is24Hour={true}
+              display={"default"}
+              onChange={this.onChange}
+              onTouchCancel={() => this.setState({ show: false })}
+              positiveButton={{ label: "OK", textColor: "green" }}
+              negativeButton={{ label: "Cancel", textColor: "red" }}
+            />
+          </View>
+
           <View style={styles.footer}>
             <TouchableOpacity
               style={[styles.add, { backgroundColor: list.color }]}

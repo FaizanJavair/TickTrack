@@ -70,6 +70,24 @@ export default class TodoList extends React.Component {
       );
     }
   }
+  listTags = (list) => {
+    tagColor = [
+      { label: "Critical", value: "red" },
+      { label: "High", value: "orange" },
+      { label: "Medium", value: "green" },
+      { label: "Low", value: "#0096FF" },
+    ];
+    for (i = 0; i < tagColor.length; i++) {
+      if (tagColor[i].label == list.priority) {
+        return (
+          <View style={[styles.tags, { backgroundColor: tagColor[i].value }]}>
+            <Text style={styles.subTitle}>Priority: </Text>
+            <Text style={styles.subTitle}>{list.priority}</Text>
+          </View>
+        );
+      }
+    }
+  };
   render() {
     const list = this.props.list;
     const todo_size = list.todos.length;
@@ -88,12 +106,15 @@ export default class TodoList extends React.Component {
         <Modal
           animationType="slide"
           visible={this.state.listVisible}
+          s
           onRequestClose={() => this.toggleListModal()}
         >
           <TaskModal
             list={list}
             closeModal={() => this.toggleListModal()}
             updateList={this.props.updateList}
+            deleteList={this.props.deleteList}
+            editList={this.props.editList}
           ></TaskModal>
         </Modal>
         <View style={[styles.listContainer, { backgroundColor: list.color }]}>
@@ -102,11 +123,18 @@ export default class TodoList extends React.Component {
             onPress={() => this.toggleListModal()}
           >
             <View style={styles.listHeader}>
-              <Text style={styles.listTitle}>{list.name}</Text>
+              <Text
+                style={styles.listTitle}
+                numberOfLines={2}
+                ellipsizeMode="tail"
+              >
+                {list.name}
+              </Text>
+
               <View style={styles.listsubTitle}>
                 <Ionicons
                   name="checkbox"
-                  size={24}
+                  size={20}
                   color={"white"}
                   style={{ marginTop: "5%" }}
                 />
@@ -116,6 +144,10 @@ export default class TodoList extends React.Component {
               </View>
             </View>
             <View>
+              <View style={{ flexDirection: "row" }}>
+                {this.listTags(list)}
+              </View>
+
               <Progress.Bar progress={ratio} width={300} color="white" />
             </View>
             <View>
@@ -140,16 +172,17 @@ styles = StyleSheet.create({
     paddingTop: "8%",
     paddingHorizontal: "8%",
     marginVertical: "2.5%",
-    height: 250,
+    height: 300,
   },
   listTitle: {
-    fontSize: 24,
+    fontSize: 22,
+    width: 200,
     fontWeight: "bold",
+    marginBottom: "2.1%",
     color: "white",
-    marginBottom: 10,
   },
   count: {
-    fontSize: 24,
+    fontSize: 22,
     color: "white",
     fontWeight: "200",
   },
@@ -164,7 +197,7 @@ styles = StyleSheet.create({
   },
 
   remainText: {
-    fontSize: 20,
+    fontSize: 16,
     color: "white",
     fontWeight: "500",
     borderBottomColor: "white",
@@ -186,15 +219,15 @@ styles = StyleSheet.create({
   taskText: {
     color: "white",
     fontWeight: "700",
-    fontSize: 15,
+    fontSize: 13,
     marginBottom: "1%",
     marginLeft: "3%",
     marginTop: "1%",
   },
   muted: {
-    color: "gray",
+    color: "white",
     fontWeight: "500",
-    fontSize: 15,
+    fontSize: 13,
     marginTop: "1%",
   },
   taskRow: {
@@ -202,5 +235,19 @@ styles = StyleSheet.create({
     width: "92%",
     padding: 1,
     justifyContent: "space-between",
+  },
+  tags: {
+    flexDirection: "row",
+    paddingHorizontal: "3%",
+    paddingVertical: "2%",
+
+    borderRadius: 10,
+    marginBottom: "2%",
+    marginEnd: "2%",
+  },
+  subTitle: {
+    fontSize: 10,
+    color: "white",
+    fontWeight: "800",
   },
 });
