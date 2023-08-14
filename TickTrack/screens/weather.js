@@ -27,6 +27,8 @@ const Weather = ({ navigation }) => {
   const [errorMsg, setErrorMsg] = useState(null);
   const [hourModal, setHourModal] = useState(false);
   const [dailyModal, setDailyModal] = useState(false);
+  const [action, setAction] = useState("");
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     // Async Function to check errors
@@ -92,30 +94,27 @@ const Weather = ({ navigation }) => {
       <SafeAreaView style={styles.container}>
         <Modal
           animationType="slide"
-          visible={hourModal}
+          visible={modal}
           style={{ backgroundColor: "gray" }}
-          onRequestClose={() => setHourModal(!hourModal)}
+          onRequestClose={() => setModal(!modal)}
         >
-          <HourModal
-            forecast={forecast}
-            closeModal={() => setHourModal(!hourModal)}
-            timezone={cZone[0].name}
-            location={location.sys}
-          />
+          {action === "Hourly" ? (
+            <HourModal
+              forecast={forecast}
+              closeModal={() => setModal(!modal)}
+              timezone={cZone[0].name}
+              location={location.sys}
+            />
+          ) : action === "Daily" ? (
+            <DailyModal
+              forecast={forecast}
+              closeModal={() => setModal(!modal)}
+              timezone={cZone[0].name}
+              location={location.sys}
+            />
+          ) : null}
         </Modal>
-        <Modal
-          animationType="slide"
-          visible={hourModal}
-          style={{ backgroundColor: "gray" }}
-          onRequestClose={() => setDailyModal(!dailyModal)}
-        >
-          <DailyModal
-            forecast={forecast}
-            closeModal={() => setDailyModal(!dailyModal)}
-            timezone={cZone[0].name}
-            location={location.sys}
-          />
-        </Modal>
+
         <View style={styles.bigCard}>
           <View style={styles.countrySection}>
             <Text style={styles.countryText}>
@@ -262,7 +261,10 @@ const Weather = ({ navigation }) => {
         <View style={styles.smallCardSection}>
           <TouchableOpacity
             style={styles.smallCard}
-            onPress={() => setHourModal(true)}
+            onPress={() => {
+              setModal(true);
+              setAction("Hourly");
+            }}
           >
             <View style={styles.smallCardHead}>
               <FontAwesome
@@ -292,7 +294,10 @@ const Weather = ({ navigation }) => {
 
           <TouchableOpacity
             style={styles.smallCard}
-            onPress={() => setDailyModal(true)}
+            onPress={() => {
+              setModal(true);
+              setAction("Daily");
+            }}
           >
             <View style={styles.smallCardHead}>
               <FontAwesome

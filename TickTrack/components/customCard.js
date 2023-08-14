@@ -10,10 +10,7 @@ const CustomCard = (props) => {
   return (
     <View style={styles.card}>
       <View style={styles.description}>
-        <Text style={styles.listText}>
-          {props.temperature}
-          {props.tempUnit}
-        </Text>
+        <Text style={styles.listText}>{props.temperature}°</Text>
 
         <Text style={styles.descriptionSmall}>{props.description}</Text>
         <View style={styles.tempsDay}>
@@ -24,10 +21,7 @@ const CustomCard = (props) => {
               color={"#36454F"}
               style={{ marginTop: 2, marginEnd: 3 }}
             />
-            <Text style={styles.subDescription}>
-              {props.desc1}
-              {props.unit1}
-            </Text>
+            <Text style={styles.subDescription}>{props.desc1}%</Text>
           </View>
           <View style={styles.smallCardHead}>
             <Feather
@@ -36,10 +30,7 @@ const CustomCard = (props) => {
               color={"#36454F"}
               style={{ marginTop: 2, marginEnd: 3 }}
             />
-            <Text style={styles.subDescription}>
-              {props.desc2}
-              {props.unit2}
-            </Text>
+            <Text style={styles.subDescription}>{props.desc2}%</Text>
           </View>
         </View>
         <View style={styles.tempsDay}>
@@ -50,10 +41,7 @@ const CustomCard = (props) => {
               color={"#36454F"}
               style={{ marginTop: 2, marginEnd: 3 }}
             />
-            <Text style={styles.subDescription}>
-              {props.desc3}
-              {props.unit3}
-            </Text>
+            <Text style={styles.subDescription}>{props.desc3} km/h</Text>
           </View>
           <View style={styles.smallCardHead}>
             <Octicons
@@ -62,10 +50,7 @@ const CustomCard = (props) => {
               color={"#36454F"}
               style={{ marginTop: 4, marginEnd: 3 }}
             />
-            <Text style={styles.subDescription}>
-              {props.desc4}
-              {props.unit4}
-            </Text>
+            <Text style={styles.subDescription}>{props.desc4} hPa</Text>
           </View>
         </View>
       </View>
@@ -104,10 +89,10 @@ const styles = StyleSheet.create({
     color: "black",
   },
   listTextSmall: {
-    marginLeft: "20%",
+    marginLeft: "22%",
     marginBottom: "10%",
-    fontSize: 16,
-    fontWeight: "300",
+    fontSize: 14,
+    fontWeight: "400",
     color: "black",
   },
   subDescription: {

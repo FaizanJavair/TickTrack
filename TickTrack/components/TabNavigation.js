@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Settings from "../screens/settings";
 import Weather from "../screens/weather";
 import Tasks from "../screens/todo";
+import Habits from "../screens/habit";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Tab = createBottomTabNavigator();
@@ -16,6 +17,8 @@ const TabNav = () => {
           let icon;
           if (route.name === "Tasks") {
             icon = focused ? "list" : "list-outline";
+          } else if (route.name === "Habit Tracker") {
+            icon = focused ? "person" : "person-outline";
           } else if (route.name === "Weather") {
             icon = focused ? "rainy" : "rainy-outline";
           } else if (route.name === "Settings") {
@@ -28,6 +31,7 @@ const TabNav = () => {
       })}
     >
       <Tab.Screen name="Tasks" component={Tasks} />
+      <Tab.Screen name="Habit Tracker" component={Habits} />
       <Tab.Screen name="Weather" component={Weather} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>

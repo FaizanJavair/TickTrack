@@ -28,7 +28,7 @@ export default function DailyModal(props) {
       }
       let loc = await Location.getCurrentPositionAsync({});
 
-      //Getting hourly data from API
+      //Getting different data
       fetch(
         `https://api.openweathermap.org/data/3.0/onecall?lat=${loc.coords.latitude}&lon=${loc.coords.longitude}&exclude=minutely,hourly&units=metric&appid=1f7892e7d880136fee0501f0feb76a6f`,
         {
@@ -48,6 +48,7 @@ export default function DailyModal(props) {
         });
     })();
   }, []);
+  console.log(location);
 
   if (errorMsg !== null) {
     //error occured
@@ -58,8 +59,6 @@ export default function DailyModal(props) {
       </View>
     );
   } else if (location !== null) {
-    var cZone = moment.tz.zonesForCountry(props.location.country, true);
-
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
@@ -71,7 +70,6 @@ export default function DailyModal(props) {
             <Ionicons name="close-outline" size={30} />
           </TouchableOpacity>
         </View>
-
         {/* Using flat list to show data */}
         {/* By parsing over the list the API provides and displaying it */}
         <View style={{ height: "92%", backgroundColor: "#00000000" }}>
@@ -81,27 +79,20 @@ export default function DailyModal(props) {
             }}
             style={styles.list}
             vertical
-            data={location.hourly.splice(0, 24)}
+            data={location.daily.splice(0, 24)}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={(hour) => {
+            renderItem={(daily) => {
               const weather = daily.item.weather[0];
-              var dt = moment
-                .tz(hour.item.dt * 1000, cZone[0].name)
-                .format("h:mm a");
+              var dt = moment.unix(daily.item.dt).format("DD/MM dddd");
               return (
                 // Calling the custom card function and sending in the appropriate props we want to show
                 <CustomCard
-                  temperature={Math.round(hour.item.temp)}
+                  temperature={Math.round(daily.item.temp.max)}
                   description={weather.description}
-                  tempUnit={"°"}
                   desc1={daily.item.humidity}
-                  unit1={"%"}
                   desc2={daily.item.clouds}
-                  unit2={"%"}
                   desc3={daily.item.wind_speed}
-                  unit3={"m/s"}
                   desc4={daily.item.pressure}
-                  unit4={"hPa"}
                   mainImg={`http://openweathermap.org/img/wn/${weather.icon}@4x.png`}
                   dt={dt}
                 />
