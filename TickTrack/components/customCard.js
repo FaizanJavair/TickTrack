@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
-
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Octicons from "@expo/vector-icons/Octicons";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import Feather from "@expo/vector-icons/Feather";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 // Custom card used in the Daily and Hourly screen
 const CustomCard = (props) => {
   return (
@@ -13,26 +17,56 @@ const CustomCard = (props) => {
 
         <Text style={styles.descriptionSmall}>{props.description}</Text>
         <View style={styles.tempsDay}>
-          <Text style={styles.subDescription}>
-            {props.desc1}
-            {props.unit1}
-          </Text>
-
-          <Text style={styles.subDescription}>
-            {props.desc2}
-            {props.unit2}
-          </Text>
+          <View style={styles.smallCardHead}>
+            <Ionicons
+              name={"water-outline"}
+              size={16}
+              color={"#36454F"}
+              style={{ marginTop: 2, marginEnd: 3 }}
+            />
+            <Text style={styles.subDescription}>
+              {props.desc1}
+              {props.unit1}
+            </Text>
+          </View>
+          <View style={styles.smallCardHead}>
+            <Feather
+              name={"cloud"}
+              size={16}
+              color={"#36454F"}
+              style={{ marginTop: 2, marginEnd: 3 }}
+            />
+            <Text style={styles.subDescription}>
+              {props.desc2}
+              {props.unit2}
+            </Text>
+          </View>
         </View>
         <View style={styles.tempsDay}>
-          <Text style={styles.subDescription}>
-            {props.desc3}
-            {props.unit3}
-          </Text>
-
-          <Text style={styles.subDescription}>
-            {props.desc4}
-            {props.unit4}
-          </Text>
+          <View style={styles.smallCardHead}>
+            <MaterialCommunityIcons
+              name={"weather-windy"}
+              size={16}
+              color={"#36454F"}
+              style={{ marginTop: 2, marginEnd: 3 }}
+            />
+            <Text style={styles.subDescription}>
+              {props.desc3}
+              {props.unit3}
+            </Text>
+          </View>
+          <View style={styles.smallCardHead}>
+            <Octicons
+              name={"meter"}
+              size={14}
+              color={"#36454F"}
+              style={{ marginTop: 4, marginEnd: 3 }}
+            />
+            <Text style={styles.subDescription}>
+              {props.desc4}
+              {props.unit4}
+            </Text>
+          </View>
         </View>
       </View>
       <View style={styles.image}>
@@ -60,29 +94,34 @@ const styles = StyleSheet.create({
   },
   tempsDay: {
     flexDirection: "row",
-    marginTop: "1%",
+    marginTop: "2%",
   },
   listText: {
     marginTop: "4%",
-    fontSize: 35,
+    fontSize: 45,
+    marginLeft: "2%",
+    fontWeight: "100",
     color: "black",
   },
   listTextSmall: {
-    marginLeft: "30%",
+    marginLeft: "20%",
     marginBottom: "10%",
-    fontSize: 20,
+    fontSize: 16,
+    fontWeight: "300",
     color: "black",
   },
   subDescription: {
-    fontSize: 20,
+    fontSize: 16,
+    fontWeight: "300",
     color: "black",
     marginStart: "2%",
     marginEnd: "2%",
-    marginTop: "2%",
+    marginBottom: "2%",
   },
   icon: {
     width: 100,
     height: 100,
+    tintColor: "#28282B",
   },
   description: {
     flex: 3,
@@ -90,12 +129,14 @@ const styles = StyleSheet.create({
   descriptionSmall: {
     marginTop: "3%",
     marginBottom: "3%",
-    fontSize: 25,
+    marginLeft: "2%",
+    fontSize: 22,
+    fontWeight: "300",
+    textTransform: "capitalize",
     color: "black",
   },
   image: {
-    flex: 1,
-    marginEnd: "2%",
+    width: "30%",
   },
 
   container: {
@@ -114,10 +155,15 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 8,
+      height: 4,
     },
-    shadowOpacity: 0.44,
-    shadowRadius: 10.32,
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+  },
+  smallCardHead: {
+    flexDirection: "row",
+    marginBottom: "2%",
+    marginLeft: "2%",
   },
 });
 

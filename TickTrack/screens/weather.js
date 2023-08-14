@@ -19,12 +19,14 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import Feather from "@expo/vector-icons/Feather";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import HourModal from "../modals/hourModal";
+import DailyModal from "../modals/dailyModal";
 
 const Weather = ({ navigation }) => {
   const [location, setlocation] = useState(null);
   const [forecast, setForecast] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [hourModal, setHourModal] = useState(false);
+  const [dailyModal, setDailyModal] = useState(false);
 
   useEffect(() => {
     // Async Function to check errors
@@ -97,6 +99,19 @@ const Weather = ({ navigation }) => {
           <HourModal
             forecast={forecast}
             closeModal={() => setHourModal(!hourModal)}
+            timezone={cZone[0].name}
+            location={location.sys}
+          />
+        </Modal>
+        <Modal
+          animationType="slide"
+          visible={hourModal}
+          style={{ backgroundColor: "gray" }}
+          onRequestClose={() => setDailyModal(!dailyModal)}
+        >
+          <DailyModal
+            forecast={forecast}
+            closeModal={() => setDailyModal(!dailyModal)}
             timezone={cZone[0].name}
             location={location.sys}
           />
@@ -258,9 +273,7 @@ const Weather = ({ navigation }) => {
               />
               <Text style={styles.smallCardHeadText}>Hourly Forecast</Text>
             </View>
-            <Text style={styles.sunText}>
-              {moment.unix(forecast.hourly[1].dt).format("h:mm a")}
-            </Text>
+            <Text style={styles.sunText}>Next Hour</Text>
             <View style={styles.forecastSection}>
               <Text style={styles.sunText}>
                 {Math.round(forecast.hourly[1].temp)}°
@@ -277,7 +290,10 @@ const Weather = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.smallCard}>
+          <TouchableOpacity
+            style={styles.smallCard}
+            onPress={() => setDailyModal(true)}
+          >
             <View style={styles.smallCardHead}>
               <FontAwesome
                 name={"calendar"}
@@ -288,9 +304,7 @@ const Weather = ({ navigation }) => {
               <Text style={styles.smallCardHeadText}>Daily Forecast</Text>
             </View>
             <View>
-              <Text style={styles.sunText}>
-                {moment.unix(forecast.daily[1].dt).format("DD/MM")}
-              </Text>
+              <Text style={styles.sunText}>Tomorrow</Text>
               <View style={styles.forecastSection}>
                 <Text style={styles.sunText}>
                   {Math.round(forecast.daily[1].temp.max)}°
