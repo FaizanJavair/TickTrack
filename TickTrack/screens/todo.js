@@ -10,10 +10,10 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import dataTemp from "../data";
+
 import TodoList from "./todolist";
 import ListModal from "../modals/listModal";
-// import dataTemp from "../data";
+
 import { auth, db } from "../database/firebase";
 
 export default class Tasks extends React.Component {

@@ -10,8 +10,7 @@ import {
 import DropDownPicker from "react-native-dropdown-picker";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-export default class ListModal extends React.Component {
-  // Black,
+export default class AddHabitModal extends React.Component {
   colors = [
     "#000000",
     "#28282B",
@@ -29,6 +28,13 @@ export default class ListModal extends React.Component {
     { label: "Low", value: "4" },
   ];
 
+  //   itemhabit = [
+  //     { label: "Critical", value: "1" },
+  //     { label: "High", value: "2" },
+  //     { label: "Medium", value: "3" },
+  //     { label: "Low", value: "4" },
+  //   ];
+
   state = {
     name: "",
     color: this.colors[0],
@@ -36,12 +42,21 @@ export default class ListModal extends React.Component {
     value: null,
     priority: "Low",
     priorityValue: "4",
+    habitType: "break",
   };
 
-  createList = () => {
-    const { name, color, priority, priorityValue, todos } = this.state;
-    const list = { name, color, priority, priorityValue };
-    this.props.addTask(list);
+  createHabit = () => {
+    const { name, color, priority, priorityValue, habitType, history } =
+      this.state;
+
+    const habit = {
+      name,
+      color,
+      priority,
+      priorityValue,
+      habitType,
+    };
+    this.props.addHabit(habit);
 
     this.setState({ name: "" });
     this.props.closeModal();
@@ -58,9 +73,7 @@ export default class ListModal extends React.Component {
       );
     });
   }
-
   render() {
-    console.log(this.state.priority);
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <TouchableOpacity
@@ -70,7 +83,7 @@ export default class ListModal extends React.Component {
           <Ionicons name="close-outline" size={30} />
         </TouchableOpacity>
         <View style={styles.header}>
-          <Text style={styles.title}>Create Your Task List</Text>
+          <Text style={styles.title}>Add Your Habit</Text>
           <TextInput
             style={styles.listInput}
             placeholder="Give Your Task List a Name!"
@@ -88,13 +101,14 @@ export default class ListModal extends React.Component {
             placeholder={this.state.priority}
             // setValue={(value) => this.setState({ priority: value })}
           />
+
           <TouchableOpacity
             style={[
               styles.createButton,
               ,
               { backgroundColor: this.state.color },
             ]}
-            onPress={this.createList}
+            onPress={this.createHabit}
           >
             <Text style={styles.createText}>Create</Text>
           </TouchableOpacity>
