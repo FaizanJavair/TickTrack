@@ -11,14 +11,12 @@ import {
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import dataTemp from "../data";
 
-export default function EditListModal(props) {
-  const [listName, setListName] = useState(props.list.name);
-  const [priority, setPriority] = useState(props.list.priority);
-  const [priorityValue, setPriorityValue] = useState(props.list.priorityValue);
+export default function EditHabitModal(props) {
+  const [habitName, setHabitName] = useState(props.habit.name);
+  const [priority, setPriority] = useState(props.habit.priority);
+  const [priorityValue, setPriorityValue] = useState(props.habit.priorityValue);
   const [open, setOpen] = useState(false);
-
   items = [
     { label: "Critical", value: "1" },
     { label: "High", value: "2" },
@@ -26,40 +24,42 @@ export default function EditListModal(props) {
     { label: "Low", value: "4" },
   ];
   const update = () => {
-    const list = {
-      name: listName,
-      id: props.list.id,
+    const habit = {
+      name: habitName,
+      id: props.habit.id,
       priority: priority,
       priorityValue: priorityValue,
     };
 
-    props.editList(list);
+    props.editHabit(habit);
 
     Keyboard.dismiss();
-    return Alert.alert("Habit Updated", "Congrats! Your changes are saved", [
-      {
-        text: "No",
-      },
-      {
-        text: "Yes",
-        onPress: props.closeModal,
-      },
-    ]);
+    return Alert.alert(
+      "Task List Updated",
+      "Congrats! Your changes are saved",
+      [
+        {
+          text: "No",
+        },
+        {
+          text: "Yes",
+          onPress: props.closeModal,
+        },
+      ]
+    );
   };
-
-  //   console.log(this.state.priority);
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <TouchableOpacity style={styles.closeButton} onPress={props.closeModal}>
         <Ionicons name="close-outline" size={30} />
       </TouchableOpacity>
       <View style={styles.header}>
-        <Text style={styles.title}>Edit Your Task List</Text>
+        <Text style={styles.title}>Edit Your Habit!</Text>
         <TextInput
           style={styles.listInput}
-          value={listName}
+          value={habitName}
           placeholderTextColor={"gray"}
-          onChangeText={(text) => setListName(text)}
+          onChangeText={(text) => setHabitName(text)}
         />
 
         <DropDownPicker
@@ -75,7 +75,11 @@ export default function EditListModal(props) {
           }}
         />
         <TouchableOpacity
-          style={[styles.createButton, , { backgroundColor: props.list.color }]}
+          style={[
+            styles.createButton,
+            ,
+            { backgroundColor: props.habit.color },
+          ]}
           onPress={() => {
             update();
           }}

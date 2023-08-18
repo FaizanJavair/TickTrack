@@ -6,11 +6,20 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   TextInput,
+  Modal,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import HabitModal from "../modals/habitModal";
 
 export default class HabitList extends React.Component {
+  state = {
+    listVisible: false,
+  };
+
+  toggleModal() {
+    this.setState({ listVisible: !this.state.listVisible });
+  }
+
   listTags = (list) => {
     tagColor = [
       { label: "Critical", value: "red" },
@@ -42,12 +51,28 @@ export default class HabitList extends React.Component {
 
     diffInTime -= diffInDays * 86400;
     const hours = Math.floor(diffInTime / 3600) % 24;
-    console.log(diffInDays);
-    console.log(hours);
+
     return (
       <View style={styles.container}>
+        <Modal
+          animationType="slide"
+          visible={this.state.listVisible}
+          s
+          onRequestClose={() => this.toggleModal()}
+        >
+          <HabitModal
+            habit={habit}
+            updateHabit={this.props.updateHabit}
+            deleteHabit={this.props.deleteHabit}
+            editHabit={this.props.editHabit}
+            closeModal={() => this.toggleModal()}
+          ></HabitModal>
+        </Modal>
         <View style={[styles.card, { backgroundColor: habit.color }]}>
-          <TouchableOpacity style={styles.card}>
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => this.toggleModal()}
+          >
             <View>
               <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
                 {habit.name}

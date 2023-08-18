@@ -40,7 +40,6 @@ export default class Habits extends React.Component {
         }
 
         this.setState({ habits: habit });
-        console.log(this.state.habits);
       });
     }
   };
@@ -57,7 +56,14 @@ export default class Habits extends React.Component {
   };
 
   renderHabits = (habit) => {
-    return <HabitList habit={habit}></HabitList>;
+    return (
+      <HabitList
+        habit={habit}
+        updateHabit={this.updateHabit}
+        deleteHabit={this.deleteHabit}
+        editHabit={this.editHabit}
+      ></HabitList>
+    );
   };
 
   addList = (habit) => {
@@ -67,11 +73,6 @@ export default class Habits extends React.Component {
 
   addHabit = (habit) => {
     let date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth();
-    let year = date.getFullYear();
-
-    let fullDate = `${month}/${day}/${year}`;
 
     this.addList({
       name: habit.name,
@@ -82,6 +83,22 @@ export default class Habits extends React.Component {
       startDate: date,
       history: [],
     });
+  };
+  updateHabitData = (habit) => {
+    let ref = this.subscribe();
+    ref.doc(habit.id).update(habit);
+  };
+  updateHabit = (habit) => {
+    this.updateHabitData(habit);
+  };
+  deleteHabit = (habit) => {
+    let ref = this.subscribe();
+    ref.doc(habit.id).delete();
+  };
+  editHabit = (habit) => {
+    let ref = this.subscribe();
+
+    ref.doc(habit.id).update(habit);
   };
 
   render() {

@@ -92,7 +92,6 @@ export default class Tasks extends React.Component {
     let ref = this.subscribe();
 
     ref.doc(list.id).update(list);
-    console.log(ref.doc(list.id).onSnapshot());
   };
   render() {
     return (
