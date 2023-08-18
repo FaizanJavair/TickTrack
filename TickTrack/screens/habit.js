@@ -6,10 +6,13 @@ import {
   TouchableOpacity,
   View,
   Modal,
+  FlatList,
 } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import AddHabitModal from "../modals/addHabitModal";
+import HabitList from "./habitList";
 import { auth, db } from "../database/firebase";
+
 export default class Habits extends React.Component {
   state = {
     addHabit: false,
@@ -35,7 +38,9 @@ export default class Habits extends React.Component {
             habit.push({ id: doc.id, ...doc.data() });
           });
         }
+
         this.setState({ habits: habit });
+        console.log(this.state.habits);
       });
     }
   };
@@ -49,6 +54,10 @@ export default class Habits extends React.Component {
 
   toggleModal = () => {
     this.setState({ addHabit: !this.state.addHabit });
+  };
+
+  renderHabits = (habit) => {
+    return <HabitList habit={habit}></HabitList>;
   };
 
   addList = (habit) => {
@@ -70,7 +79,7 @@ export default class Habits extends React.Component {
       priority: habit.priority,
       priorityValue: habit.priorityValue,
       habitType: habit.habitType,
-      startDate: fullDate,
+      startDate: date,
       history: [],
     });
   };
@@ -78,8 +87,6 @@ export default class Habits extends React.Component {
   render() {
     return (
       <View>
-        <Text>Hello this is habit tracker</Text>
-
         <Modal
           animationType="slide"
           visible={this.state.addHabit}
@@ -90,6 +97,14 @@ export default class Habits extends React.Component {
             addHabit={this.addHabit}
           />
         </Modal>
+        <FlatList
+          data={this.state.habits}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+          scrollEnabled={true}
+          renderItem={({ item }) => this.renderHabits(item)}
+          keyboardShouldPersistTaps="always"
+        />
         <TouchableOpacity
           style={styles.floatingButton}
           onPress={() => this.toggleModal()}

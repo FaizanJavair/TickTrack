@@ -62,6 +62,7 @@ const Register = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView enabled>
+        <Text style={styles.title}>Start Trackin' With Us!</Text>
         <View style={styles.section}>
           <TextInput
             style={styles.inputStyle}
@@ -99,11 +100,10 @@ const Register = ({ navigation }) => {
         >
           <Text style={styles.logText}>Register</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.logButton}
-          onPress={() => navigation.navigate("Login")}
-        >
-          <Text style={styles.logText}>Login</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <Text style={styles.linkText}>
+            Already have an account? Login then!
+          </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -137,21 +137,37 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     width: "60%",
     marginHorizontal: "20%",
-    borderRadius: 15,
-    marginVertical: 5,
-    height: 40,
+    borderRadius: 12,
+    marginVertical: "2%",
+    height: 45,
   },
   logText: {
     color: "white",
-    paddingVertical: 10,
-    fontSize: 16,
-    fontWeight: "bold",
+    paddingVertical: 12,
+    fontSize: 18,
+    fontWeight: 400,
     textAlign: "center",
   },
   errorText: {
     color: "red",
     textAlign: "center",
     fontSize: 14,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: "600",
+    color: "black",
+    textAlign: "center",
+    marginBottom: "5%",
+  },
+  linkText: {
+    color: "gray",
+    paddingVertical: 8,
+    justifyContent: "center",
+    fontSize: 12,
+    fontWeight: 500,
+    textAlign: "center",
+    textDecorationLine: "underline",
   },
 });
 export default Register;

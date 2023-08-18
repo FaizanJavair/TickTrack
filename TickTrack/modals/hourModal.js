@@ -117,7 +117,7 @@ export default function HourModal(props) {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.listTitle}>Hourly Data</Text>
+          <Text style={styles.listTitle}>Hourly Forecast</Text>
           <TouchableOpacity
             style={styles.closeButton}
             onPress={props.closeModal}

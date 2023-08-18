@@ -165,7 +165,7 @@ export default class TodoList extends React.Component {
   }
 }
 
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
   listContainer: {
     width: 350,
     borderRadius: 15,

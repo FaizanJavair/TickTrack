@@ -86,7 +86,7 @@ export default class AddHabitModal extends React.Component {
           <Text style={styles.title}>Add Your Habit</Text>
           <TextInput
             style={styles.listInput}
-            placeholder="Give Your Task List a Name!"
+            placeholder="Give Your Habit a Name!"
             placeholderTextColor={"gray"}
             onChangeText={(text) => this.setState({ name: text })}
           />
@@ -110,7 +110,7 @@ export default class AddHabitModal extends React.Component {
             ]}
             onPress={this.createHabit}
           >
-            <Text style={styles.createText}>Create</Text>
+            <Text style={styles.createText}>Start Breaking The Habit</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>

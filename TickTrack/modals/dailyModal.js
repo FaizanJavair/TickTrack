@@ -107,7 +107,7 @@ export default function DailyModal(props) {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.listTitle}>Daily Data</Text>
+          <Text style={styles.listTitle}>Daily Forecast</Text>
           <TouchableOpacity
             style={styles.closeButton}
             onPress={props.closeModal}

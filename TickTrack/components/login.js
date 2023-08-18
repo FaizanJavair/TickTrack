@@ -7,6 +7,7 @@ import {
   TextInput,
   StyleSheet,
   Keyboard,
+  Image,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { auth } from "../database/firebase";
@@ -50,6 +51,11 @@ const Login = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior="padding">
+        <Image
+          source={require("../assets/adaptive-icon.png")}
+          style={styles.icon}
+        />
+        <Text style={styles.title}>Tick Track</Text>
         <View style={styles.section}>
           <TextInput
             style={styles.inputStyle}
@@ -80,10 +86,12 @@ const Login = ({ navigation }) => {
           <Text style={styles.logText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.logButton}
+          style={styles.link}
           onPress={() => navigation.navigate("Register")}
         >
-          <Text style={styles.logText}>Register</Text>
+          <Text style={styles.linkText}>
+            Don't have an account? Register Now!
+          </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -95,7 +103,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
+
     justifyContent: "center",
+  },
+  title: {
+    fontSize: 25,
+    fontWeight: "300",
+    color: "black",
+    textAlign: "center",
+    marginTop: "5%",
+    marginBottom: "5%",
+  },
+  icon: {
+    width: 80,
+    height: 80,
+    alignSelf: "center",
   },
   section: {
     flexDirection: "row",
@@ -117,21 +139,31 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     width: "60%",
     marginHorizontal: "20%",
-    borderRadius: 15,
-    marginVertical: 5,
-    height: 40,
+    borderRadius: 12,
+    marginVertical: "3%",
+    height: 45,
   },
   logText: {
     color: "white",
-    paddingVertical: 10,
-    fontSize: 16,
-    fontWeight: "bold",
+    paddingVertical: 12,
+    justifyContent: "center",
+    fontSize: 18,
+    fontWeight: 400,
     textAlign: "center",
   },
   errorText: {
     color: "red",
     textAlign: "center",
     fontSize: 14,
+  },
+  linkText: {
+    color: "gray",
+    paddingVertical: 8,
+    justifyContent: "center",
+    fontSize: 12,
+    fontWeight: 500,
+    textAlign: "center",
+    textDecorationLine: "underline",
   },
 });
 export default Login;
