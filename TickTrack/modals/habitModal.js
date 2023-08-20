@@ -67,6 +67,30 @@ export default class HabitModal extends React.Component {
       ]
     );
   };
+  addToCounter = () => {
+    const habit = this.props.habit;
+    const newDate = new Date();
+    habit.history.push({
+      id: uuid.v1(),
+      end: newDate,
+      start: habit.startDate,
+    });
+    return Alert.alert(
+      "Great, you did the habit!",
+      "Are you sure you want to add to the counter?",
+      [
+        {
+          text: "No",
+        },
+        {
+          text: "Yes",
+          onPress: () => {
+            this.props.editHabit(habit);
+          },
+        },
+      ]
+    );
+  };
 
   listTags = (list) => {
     tagColor = [
@@ -92,6 +116,7 @@ export default class HabitModal extends React.Component {
     const s = new Date(start.seconds * 1000);
     const startDate = s.toLocaleString();
     const t = new Date(end.seconds * 1000);
+    const endDate = t.toLocaleString();
     var diffInTime = (t.getTime() - s.getTime()) / 1000;
 
     console.log(start);
@@ -105,22 +130,46 @@ export default class HabitModal extends React.Component {
     diffInTime -= hours * 3600;
 
     const minutes = Math.floor(diffInTime / 60) % 60;
-    return (
-      <View style={styles.listCard}>
-        <Text>Your Streak Lasted:</Text>
-        {diffInDays === 0 ? (
-          <Text>
-            {hours} Hours & {minutes} Minutes
-          </Text>
-        ) : hours === 0 ? (
-          <Text>{minutes} Minutes</Text>
-        ) : diffInDays !== 0 ? (
-          <Text>
-            {diffInDays} Days, {hours} Hours & {minutes} Minutes
-          </Text>
-        ) : null}
-      </View>
-    );
+
+    const type = this.props.habit.habitType;
+    const color = this.props.habit.color;
+
+    if (type == "Break") {
+      return (
+        <View style={[styles.listCard, { borderColor: color, borderWidth: 1 }]}>
+          <Text style={styles.historyTitle}>Your Streak Lasted:</Text>
+          {diffInDays === 0 ? (
+            <View>
+              <Text style={styles.historyMainText}>
+                {hours} Hours & {minutes} Minutes
+              </Text>
+              <Text style={styles.historyDate}>Started At: {startDate}</Text>
+              <Text style={styles.historyDate}>Ended At: {endDate}</Text>
+            </View>
+          ) : diffInDays !== 0 ? (
+            <View>
+              <Text style={styles.historyMainText}>
+                {diffInDays} Days, {hours} Hours & {minutes} Minutes
+              </Text>
+              <Text style={styles.historyDate}>Started At: {startDate}</Text>
+              <Text style={styles.historyDate}>Ended At: {endDate}</Text>
+            </View>
+          ) : null}
+        </View>
+      );
+    } else {
+      return (
+        <View
+          style={[
+            styles.listCard,
+            { borderColor: color, borderWidth: 1, height: 80 },
+          ]}
+        >
+          <Text style={[styles.historyTitle]}>You Last Did the Habit At:</Text>
+          <Text style={styles.endDate}>{endDate}</Text>
+        </View>
+      );
+    }
   }
   render() {
     const habit = this.props.habit;
@@ -175,7 +224,14 @@ export default class HabitModal extends React.Component {
             </Text>
 
             <Text style={styles.date}>Start Date: {startDate}</Text>
-            <Text style={styles.relapse}>You Relapsed {relapse} Times</Text>
+            {habit.habitType == "Break" ? (
+              <Text style={styles.relapse}>You Relapsed {relapse} Times</Text>
+            ) : habit.habitType == "Make" ? (
+              <Text style={styles.relapse}>
+                You Did The Habit {relapse} Times
+              </Text>
+            ) : null}
+
             <View style={{ flexDirection: "row" }}>
               {this.listTags(habit)}
               <View style={[styles.tags, { backgroundColor: habit.color }]}>
@@ -229,7 +285,7 @@ export default class HabitModal extends React.Component {
               History
             </Text>
             <FlatList
-              data={habit.history}
+              data={this.props.history}
               renderItem={({ item, index }) => this.renderHistory(item, index)}
               keyExtractor={(item) => item.id}
               contentContainerStyle={{
@@ -240,12 +296,21 @@ export default class HabitModal extends React.Component {
             />
           </View>
           <View>
-            <TouchableOpacity
-              style={[styles.createButton, { backgroundColor: habit.color }]}
-              onPress={() => this.relapse()}
-            >
-              <Text style={styles.createText}>Relapse</Text>
-            </TouchableOpacity>
+            {habit.habitType == "Break" ? (
+              <TouchableOpacity
+                style={[styles.createButton, { backgroundColor: habit.color }]}
+                onPress={() => this.relapse()}
+              >
+                <Text style={styles.createText}>Relapse</Text>
+              </TouchableOpacity>
+            ) : habit.habitType == "Make" ? (
+              <TouchableOpacity
+                style={[styles.createButton, { backgroundColor: habit.color }]}
+                onPress={() => this.addToCounter()}
+              >
+                <Text style={styles.createText}>Add To Counter</Text>
+              </TouchableOpacity>
+            ) : null}
           </View>
         </View>
       </SafeAreaView>
@@ -277,7 +342,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: 350,
-    borderRadius: 15,
+    borderRadius: 12,
     backgroundColor: "white",
     paddingVertical: "3%",
     paddingHorizontal: "4%",
@@ -359,5 +424,34 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
+  },
+  listCard: {
+    width: 310,
+    borderRadius: 12,
+    backgroundColor: "white",
+    paddingVertical: "3%",
+    paddingHorizontal: "4%",
+    marginTop: "2%",
+    height: 100,
+  },
+  historyTitle: {
+    fontSize: 18,
+    fontWeight: 200,
+  },
+  historyMainText: {
+    fontSize: 16,
+    fontWeight: 700,
+    marginBottom: "2%",
+    marginTop: "1%",
+  },
+  historyDate: {
+    fontSize: 12,
+    fontWeight: 300,
+  },
+  endDate: {
+    fontSize: 18,
+
+    marginTop: "2%",
+    fontWeight: 400,
   },
 });

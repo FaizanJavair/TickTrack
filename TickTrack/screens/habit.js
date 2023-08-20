@@ -126,7 +126,7 @@ export default class Habits extends React.Component {
           style={styles.floatingButton}
           onPress={() => this.toggleModal()}
         >
-          <AntDesign name="plus" size={30} color={"white"} />
+          <AntDesign name="plus" size={30} color={"#333333"} />
         </TouchableOpacity>
       </View>
     );
@@ -136,7 +136,7 @@ export default class Habits extends React.Component {
 const styles = StyleSheet.create({
   floatingButton: {
     borderWidth: 1,
-    borderColor: "black",
+
     alignItems: "center",
     justifyContent: "center",
     width: 65,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     top: 590,
     right: 10,
     height: 65,
-    backgroundColor: "black",
+    backgroundColor: "#fffd54",
     borderRadius: 100,
   },
 });

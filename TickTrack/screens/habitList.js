@@ -52,6 +52,15 @@ export default class HabitList extends React.Component {
     diffInTime -= diffInDays * 86400;
     const hours = Math.floor(diffInTime / 3600) % 24;
 
+    const history = [];
+
+    habit.history
+      .slice()
+      .reverse()
+      .forEach((x) => {
+        history.push(x);
+      });
+
     return (
       <View style={styles.container}>
         <Modal
@@ -62,6 +71,7 @@ export default class HabitList extends React.Component {
         >
           <HabitModal
             habit={habit}
+            history={history}
             updateHabit={this.props.updateHabit}
             deleteHabit={this.props.deleteHabit}
             editHabit={this.props.editHabit}
@@ -77,12 +87,28 @@ export default class HabitList extends React.Component {
               <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
                 {habit.name}
               </Text>
-              <Text style={styles.streakTitle}>
-                Streak of {diffInDays} days & {hours} hours
-              </Text>
+              {habit.habitType == "Break" ? (
+                <Text style={styles.streakTitle}>
+                  Streak of {diffInDays} days & {hours} hours
+                </Text>
+              ) : habit.habitType == "Make" ? (
+                <Text style={styles.streakTitle}>
+                  You Did The Habit {habit.history.length} Times
+                </Text>
+              ) : null}
             </View>
 
-            <View style={{ flexDirection: "row" }}>{this.listTags(habit)}</View>
+            <View style={{ flexDirection: "row" }}>
+              {this.listTags(habit)}
+              <View style={[styles.tags, { backgroundColor: "white" }]}>
+                <Text style={[styles.subTitle, { color: "black" }]}>
+                  Habit Type:
+                </Text>
+                <Text style={[styles.subTitle, { color: "black" }]}>
+                  {habit.habitType}
+                </Text>
+              </View>
+            </View>
             <Text style={styles.startDate}>Started at {startDate}</Text>
           </TouchableOpacity>
         </View>

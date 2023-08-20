@@ -28,21 +28,20 @@ export default class AddHabitModal extends React.Component {
     { label: "Low", value: "4" },
   ];
 
-  //   itemhabit = [
-  //     { label: "Critical", value: "1" },
-  //     { label: "High", value: "2" },
-  //     { label: "Medium", value: "3" },
-  //     { label: "Low", value: "4" },
-  //   ];
+  types = [
+    { label: "Break", value: "break" },
+    { label: "Make", value: "make" },
+  ];
 
   state = {
     name: "",
     color: this.colors[0],
     open: false,
+    habitOpen: false,
     value: null,
     priority: "Low",
     priorityValue: "4",
-    habitType: "break",
+    habitType: "Break",
   };
 
   createHabit = () => {
@@ -90,16 +89,30 @@ export default class AddHabitModal extends React.Component {
             placeholderTextColor={"gray"}
             onChangeText={(text) => this.setState({ name: text })}
           />
+          <DropDownPicker
+            style={styles.picker}
+            open={this.state.habitOpen}
+            onOpen={() => this.setState({ habitOpen: true })}
+            onClose={() => this.setState({ habitOpen: false })}
+            items={this.types}
+            onSelectItem={(value) => this.setState({ habitType: value.label })}
+            placeholder={this.state.habitType}
+          />
           <View style={styles.colorView}>{this.renderColors()}</View>
+
           <DropDownPicker
             style={styles.picker}
             open={this.state.open}
             onOpen={() => this.setState({ open: true })}
             onClose={() => this.setState({ open: false })}
             items={this.items}
-            onSelectItem={(value) => this.setState({ priority: value.label })}
+            onSelectItem={(value) =>
+              this.setState({
+                priority: value.label,
+                priorityValue: value.value,
+              })
+            }
             placeholder={this.state.priority}
-            // setValue={(value) => this.setState({ priority: value })}
           />
 
           <TouchableOpacity
@@ -110,7 +123,7 @@ export default class AddHabitModal extends React.Component {
             ]}
             onPress={this.createHabit}
           >
-            <Text style={styles.createText}>Start Breaking The Habit</Text>
+            <Text style={styles.createText}>Start The Habit</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>

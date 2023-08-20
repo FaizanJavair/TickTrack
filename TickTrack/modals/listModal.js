@@ -60,7 +60,6 @@ export default class ListModal extends React.Component {
   }
 
   render() {
-    console.log(this.state.priority);
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <TouchableOpacity
@@ -84,7 +83,12 @@ export default class ListModal extends React.Component {
             onOpen={() => this.setState({ open: true })}
             onClose={() => this.setState({ open: false })}
             items={this.items}
-            onSelectItem={(value) => this.setState({ priority: value.label })}
+            onSelectItem={(value) =>
+              this.setState({
+                priority: value.label,
+                priorityValue: value.value,
+              })
+            }
             placeholder={this.state.priority}
             // setValue={(value) => this.setState({ priority: value })}
           />
