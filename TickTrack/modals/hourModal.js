@@ -88,7 +88,7 @@ export default function HourModal(props) {
               const weather = hour.item.weather[0];
               var dt = moment
                 .tz(hour.item.dt * 1000, cZone[0].name)
-                .format("h:mm a");
+                .format("h:mm A");
               return (
                 // Calling the custom card function and sending in the appropriate props we want to show
                 <CustomCard

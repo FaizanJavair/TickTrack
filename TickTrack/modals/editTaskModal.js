@@ -11,43 +11,69 @@ import {
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import dataTemp from "../data";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function EditTaskModal(props) {
   const [taskName, setTaskName] = useState(props.task.title);
-  // const [priority, setPriority] = useState(props.list.priority);
-  // const [priorityValue, setPriorityValue] = useState(props.list.priorityValue);
-  // const [open, setOpen] = useState(false);
+  const [oldName, setOldName] = useState(props.task.title);
+  const [dueDateTime, setDueDateTime] = useState(props.task.dueDateTime);
+  const due = new Date(dueDateTime.seconds * 1000);
+  const [date, setDate] = useState(due);
+  const [text, setText] = useState(props.task.text);
+  const [show, setShow] = useState(false);
 
-  // items = [
-  //   { label: "Critical", value: "1" },
-  //   { label: "High", value: "2" },
-  //   { label: "Medium", value: "3" },
-  //   { label: "Low", value: "4" },
-  // ];
   const update = () => {
     const list = props.list;
-    const todo = {
-      id: props.task.id,
-      title: taskName,
-      completed: props.task.completed,
-    };
+    let todo = {};
+    if (taskName == "") {
+      todo = {
+        id: props.task.id,
+        title: oldName,
+        dueDateTime: dueDateTime,
+        text: text,
+        completed: props.task.completed,
+      };
+    } else {
+      todo = {
+        id: props.task.id,
+        title: taskName,
+        dueDateTime: dueDateTime,
+        text: text,
+        completed: props.task.completed,
+      };
+    }
+
     list.todos[props.index] = todo;
     props.updateList(list);
     props.closeModal;
     Keyboard.dismiss();
     return Alert.alert("Task Updated", "Congrats! Your changes are saved.", [
       {
-        text: "Yes",
+        text: "OK",
         onPress: props.closeModal,
-      },
-      {
-        text: "No",
       },
     ]);
   };
 
-  //   console.log(this.state.priority);
+  const onChange = (event, selectedDate) => {
+    const currentDateTime = selectedDate;
+
+    let tempDate = new Date(currentDateTime);
+    setShow(Platform.OS === "ios");
+    setDate(tempDate);
+    setDueDateTime(currentDateTime);
+
+    let ds = tempDate.getTime() / 1000;
+    console.log(ds);
+    let t = moment.unix(ds).format("DD/MM/YYYY");
+    let ft = moment.unix(ds).format("h:mm a");
+
+    setText(t + " | " + ft);
+  };
+  const showMode = () => {
+    setShow(!show);
+  };
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <TouchableOpacity style={styles.closeButton} onPress={props.closeModal}>
@@ -61,6 +87,37 @@ export default function EditTaskModal(props) {
           placeholderTextColor={"gray"}
           onChangeText={(text) => setTaskName(text)}
         />
+        <View>
+          <View style={{ flexDirection: "row", marginTop: "3%" }}>
+            <TouchableOpacity
+              style={[styles.button, { backgroundColor: props.list.color }]}
+              onPress={() => setShow(!show)}
+            >
+              <Text style={styles.dateText}>Due Date & Time</Text>
+            </TouchableOpacity>
+            <Text style={styles.date}>{text}</Text>
+          </View>
+
+          {show && (
+            <View
+              style={{
+                width: 330,
+                backgroundColor: "gray",
+                paddingHorizontal: 20,
+                borderRadius: 12,
+              }}
+            >
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode="datetime"
+                is24Hour={true}
+                display={Platform.OS === "ios" ? "inline" : "default"}
+                onChange={onChange}
+              />
+            </View>
+          )}
+        </View>
         <TouchableOpacity
           style={[styles.createButton, , { backgroundColor: props.list.color }]}
           onPress={() => {
@@ -133,5 +190,20 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 1.5,
     borderRadius: 12,
+  },
+  button: {
+    fontSize: 15,
+    backgroundColor: "black",
+    padding: 8,
+    borderRadius: 10,
+  },
+  dateText: {
+    color: "white",
+    fontSize: 16,
+  },
+  date: {
+    marginTop: "2%",
+    marginLeft: "2%",
+    fontSize: 18,
   },
 });

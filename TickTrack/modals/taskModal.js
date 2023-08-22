@@ -18,6 +18,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import AddTask from "./addTaskModal";
 import EditListModal from "./editListModal";
 import EditTaskModal from "./editTaskModal";
+import moment from "moment-timezone";
 export default class TaskModal extends React.Component {
   state = {
     addVisible: false,
@@ -82,23 +83,37 @@ export default class TaskModal extends React.Component {
       "This action is not reversible, are you sure you want to delete the task?",
       [
         {
+          text: "No",
+        },
+        {
           text: "Yes",
           onPress: () => {
             list.todos.splice(index, 1);
             this.props.updateList(list);
           },
         },
-        {
-          text: "No",
-        },
       ]
     );
   };
 
   renderRemainingTask = (task, index) => {
+    let fDate;
+    let fTime;
+    if (task.dueDateTime !== "") {
+      const dueDate = new Date(task.dueDateTime.seconds * 1000);
+
+      fDate = moment.unix(task.dueDateTime.seconds).format("DD/MM/YYYY");
+      fTime = moment.unix(task.dueDateTime.seconds).format("h:mm A");
+      console.log(fDate);
+      console.log(fTime);
+    } else {
+      fDate = "None";
+      fTime = "None";
+    }
+
     if (!task.completed) {
       return (
-        <View style={styles.tasks}>
+        <View style={styles.tasksRemain}>
           <View>
             <Modal
               animationType="slide"
@@ -114,39 +129,77 @@ export default class TaskModal extends React.Component {
               />
             </Modal>
           </View>
+          <View style={styles.taskCard}>
+            <View style={styles.taskRow}>
+              <TouchableOpacity onPress={() => this.toggleTask(index)}>
+                <Ionicons
+                  name={task.completed ? "checkbox" : "square-outline"}
+                  size={25}
+                  color={this.props.list.color}
+                />
+              </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => this.toggleTask(index)}>
-            <Ionicons
-              name={task.completed ? "checkbox" : "square-outline"}
-              size={25}
-              color={this.props.list.color}
-            />
-          </TouchableOpacity>
-
-          <View style={styles.taskRow}>
-            <Text style={[styles.taskText, { color: this.state.color }]}>
-              {task.title}
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              <View
-                style={[
-                  styles.tags,
-                  { backgroundColor: this.props.list.color },
-                ]}
-              >
-                <TouchableOpacity onPress={() => this.deleteTask(index)}>
-                  <Ionicons name={"trash-outline"} size={22} color={"white"} />
-                </TouchableOpacity>
+              <View style={styles.taskRow}>
+                <Text style={[styles.taskText, { color: this.state.color }]}>
+                  {task.title}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.taskExtra}>
+              <View style={{ marginBottom: "2%" }}>
+                <Text style={styles.dueDate}>Due Date: {fDate}</Text>
+                <Text style={styles.dueDate}>Time: {fTime}</Text>
               </View>
               <View
-                style={[
-                  styles.tags,
-                  { backgroundColor: this.props.list.color, marginEnd: 0 },
-                ]}
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
               >
-                <TouchableOpacity onPress={() => this.toggleTaskModal()}>
-                  <Ionicons name={"pencil"} size={22} color={"white"} />
-                </TouchableOpacity>
+                <View
+                  style={[
+                    styles.editTag,
+                    { backgroundColor: this.props.list.color },
+                  ]}
+                >
+                  <TouchableOpacity
+                    style={{
+                      flexDirection: "row",
+                    }}
+                    onPress={() => this.deleteTask(index)}
+                  >
+                    <View>
+                      <Ionicons
+                        name={"trash-outline"}
+                        size={18}
+                        color={"white"}
+                      />
+                    </View>
+                    <View style={styles.due}>
+                      <Text style={styles.due}>Delete</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+                <View
+                  style={[
+                    styles.editTag,
+                    { backgroundColor: this.props.list.color, marginEnd: 0 },
+                  ]}
+                >
+                  <TouchableOpacity
+                    style={{
+                      flexDirection: "row",
+                    }}
+                    onPress={() => this.toggleTaskModal()}
+                  >
+                    <View>
+                      <Ionicons name={"pencil"} size={18} color={"white"} />
+                    </View>
+                    <View style={styles.due}>
+                      <Text style={styles.due}>Edit Task</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </View>
@@ -161,11 +214,11 @@ export default class TaskModal extends React.Component {
       "This action is not reversible, are you sure you want to delete the list?",
       [
         {
-          text: "Yes",
-          onPress: () => this.props.deleteList(list),
+          text: "No",
         },
         {
-          text: "No",
+          text: "Yes",
+          onPress: () => this.props.deleteList(list),
         },
       ]
     );
@@ -376,8 +429,13 @@ const styles = StyleSheet.create({
   },
   tasks: {
     flexDirection: "row",
-    paddingVertical: "5%",
     alignItems: "center",
+    marginLeft: "5%",
+    marginBottom: "3%",
+  },
+  tasksRemain: {
+    alignItems: "center",
+    marginBottom: "3%",
   },
   taskText: {
     color: "black",
@@ -431,5 +489,42 @@ const styles = StyleSheet.create({
     marginTop: "1%",
     borderRadius: 8,
     marginEnd: "2%",
+  },
+  taskExtra: {
+    flexDirection: "column",
+    marginLeft: "11%",
+  },
+  taskCard: {
+    backgroundColor: "white",
+    paddingVertical: "3%",
+    width: 350,
+    paddingHorizontal: "3%",
+    borderRadius: 12,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
+  },
+  editTag: {
+    paddingHorizontal: "3%",
+    paddingVertical: "2%",
+    marginTop: "2%",
+    borderRadius: 12,
+    width: 140,
+    marginEnd: "2%",
+  },
+  due: {
+    fontSize: 15,
+    justifyContent: "center",
+    fontWeight: 300,
+    marginLeft: "4%",
+    color: "white",
+  },
+  dueDate: {
+    fontSize: 14,
+    fontWeight: 300,
   },
 });

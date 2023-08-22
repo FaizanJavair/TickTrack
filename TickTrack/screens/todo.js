@@ -2,15 +2,14 @@ import React from "react";
 import {
   SafeAreaView,
   StyleSheet,
-  Text,
   View,
   TouchableOpacity,
   FlatList,
   Modal,
+  ActivityIndicator,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AntDesign from "@expo/vector-icons/AntDesign";
-
 import TodoList from "./todolist";
 import ListModal from "../modals/listModal";
 
@@ -19,6 +18,7 @@ import { auth, db } from "../database/firebase";
 export default class Tasks extends React.Component {
   state = {
     addTodo: false,
+    loading: true,
     lists: [],
   };
   subscribe = () => {
@@ -40,7 +40,11 @@ export default class Tasks extends React.Component {
             list.push({ id: doc.id, ...doc.data() });
           });
         }
-        this.setState({ lists: list, user: auth.currentUser.uid });
+        this.setState({
+          lists: list,
+          user: auth.currentUser.uid,
+          loading: false,
+        });
       });
     }
   };
@@ -94,36 +98,42 @@ export default class Tasks extends React.Component {
     ref.doc(list.id).update(list);
   };
   render() {
-    return (
+    if (this.state.loading == true) {
       <View style={styles.container}>
-        <StatusBar />
-        <Modal
-          animationType="slide"
-          visible={this.state.addTodo}
-          onRequestClose={() => this.toggleModal()}
-        >
-          <ListModal
-            closeModal={() => this.toggleModal()}
-            addTask={this.addTask}
+        <ActivityIndicator style={{ marginTop: "80%" }} color={"black"} />
+      </View>;
+    } else {
+      return (
+        <View style={styles.container}>
+          <StatusBar />
+          <Modal
+            animationType="slide"
+            visible={this.state.addTodo}
+            onRequestClose={() => this.toggleModal()}
+          >
+            <ListModal
+              closeModal={() => this.toggleModal()}
+              addTask={this.addTask}
+            />
+          </Modal>
+          <FlatList
+            data={this.state.lists}
+            keyExtractor={(item) => item.name}
+            showsVerticalScrollIndicator={false}
+            scrollEnabled={true}
+            renderItem={({ item }) => this.renderTasks(item)}
+            keyboardShouldPersistTaps="always"
           />
-        </Modal>
-        <FlatList
-          data={this.state.lists}
-          keyExtractor={(item) => item.name}
-          showsVerticalScrollIndicator={false}
-          scrollEnabled={true}
-          renderItem={({ item }) => this.renderTasks(item)}
-          keyboardShouldPersistTaps="always"
-        />
 
-        <TouchableOpacity
-          style={styles.floatingButton}
-          onPress={() => this.toggleModal()}
-        >
-          <AntDesign name="plus" size={30} color={"#333333"} />
-        </TouchableOpacity>
-      </View>
-    );
+          <TouchableOpacity
+            style={styles.floatingButton}
+            onPress={() => this.toggleModal()}
+          >
+            <AntDesign name="plus" size={30} color={"#333333"} />
+          </TouchableOpacity>
+        </View>
+      );
+    }
   }
 }
 

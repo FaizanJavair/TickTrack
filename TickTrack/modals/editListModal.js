@@ -15,6 +15,7 @@ import dataTemp from "../data";
 
 export default function EditListModal(props) {
   const [listName, setListName] = useState(props.list.name);
+  const [oldName, setOldName] = useState(props.list.name);
   const [priority, setPriority] = useState(props.list.priority);
   const [priorityValue, setPriorityValue] = useState(props.list.priorityValue);
   const [open, setOpen] = useState(false);
@@ -26,22 +27,28 @@ export default function EditListModal(props) {
     { label: "Low", value: "4" },
   ];
   const update = () => {
-    const list = {
-      name: listName,
-      id: props.list.id,
-      priority: priority,
-      priorityValue: priorityValue,
-    };
-
+    let list;
+    if (listName == "") {
+      list = {
+        name: oldName,
+        id: props.list.id,
+        priority: priority,
+        priorityValue: priorityValue,
+      };
+    } else {
+      list = {
+        name: listName,
+        id: props.list.id,
+        priority: priority,
+        priorityValue: priorityValue,
+      };
+    }
     props.editList(list);
 
     Keyboard.dismiss();
     return Alert.alert("Habit Updated", "Congrats! Your changes are saved", [
       {
-        text: "No",
-      },
-      {
-        text: "Yes",
+        text: "OK",
         onPress: props.closeModal,
       },
     ]);

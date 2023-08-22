@@ -1,12 +1,12 @@
 import React from "react";
 import {
   SafeAreaView,
-  Text,
   StyleSheet,
   TouchableOpacity,
   View,
   Modal,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import AddHabitModal from "../modals/addHabitModal";
@@ -16,6 +16,7 @@ import { auth, db } from "../database/firebase";
 export default class Habits extends React.Component {
   state = {
     addHabit: false,
+    loading: true,
     habits: [],
   };
 
@@ -39,7 +40,7 @@ export default class Habits extends React.Component {
           });
         }
 
-        this.setState({ habits: habit });
+        this.setState({ habits: habit, loading: false });
       });
     }
   };
@@ -102,41 +103,49 @@ export default class Habits extends React.Component {
   };
 
   render() {
-    return (
-      <View>
-        <Modal
-          animationType="slide"
-          visible={this.state.addHabit}
-          onRequestClose={() => this.toggleModal()}
-        >
-          <AddHabitModal
-            closeModal={() => this.toggleModal()}
-            addHabit={this.addHabit}
+    if (this.state.loading == true) {
+      <SafeAreaView style={styles.container}>
+        <ActivityIndicator style={{ marginTop: "20%" }} color={"black"} />
+      </SafeAreaView>;
+    } else {
+      return (
+        <View>
+          <Modal
+            animationType="slide"
+            visible={this.state.addHabit}
+            onRequestClose={() => this.toggleModal()}
+          >
+            <AddHabitModal
+              closeModal={() => this.toggleModal()}
+              addHabit={this.addHabit}
+            />
+          </Modal>
+          <FlatList
+            data={this.state.habits}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+            scrollEnabled={true}
+            renderItem={({ item }) => this.renderHabits(item)}
+            keyboardShouldPersistTaps="always"
           />
-        </Modal>
-        <FlatList
-          data={this.state.habits}
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
-          scrollEnabled={true}
-          renderItem={({ item }) => this.renderHabits(item)}
-          keyboardShouldPersistTaps="always"
-        />
-        <TouchableOpacity
-          style={styles.floatingButton}
-          onPress={() => this.toggleModal()}
-        >
-          <AntDesign name="plus" size={30} color={"#333333"} />
-        </TouchableOpacity>
-      </View>
-    );
+          <TouchableOpacity
+            style={styles.floatingButton}
+            onPress={() => this.toggleModal()}
+          >
+            <AntDesign name="plus" size={30} color={"#333333"} />
+          </TouchableOpacity>
+        </View>
+      );
+    }
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
   floatingButton: {
-    borderWidth: 1,
-
     alignItems: "center",
     justifyContent: "center",
     width: 65,

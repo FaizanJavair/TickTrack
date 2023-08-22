@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -39,12 +40,24 @@ export default class ListModal extends React.Component {
   };
 
   createList = () => {
-    const { name, color, priority, priorityValue, todos } = this.state;
-    const list = { name, color, priority, priorityValue };
-    this.props.addTask(list);
+    if (this.state.name == "") {
+      return Alert.alert(
+        "You Forgot Something",
+        "Give your list a name to continue.",
+        [
+          {
+            text: "OK",
+          },
+        ]
+      );
+    } else {
+      const { name, color, priority, priorityValue, todos } = this.state;
+      const list = { name, color, priority, priorityValue };
+      this.props.addTask(list);
 
-    this.setState({ name: "" });
-    this.props.closeModal();
+      this.setState({ name: "" });
+      this.props.closeModal();
+    }
   };
 
   renderColors() {
