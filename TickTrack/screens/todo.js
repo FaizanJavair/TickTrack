@@ -129,7 +129,7 @@ export default class Tasks extends React.Component {
             style={styles.floatingButton}
             onPress={() => this.toggleModal()}
           >
-            <AntDesign name="plus" size={30} color={"#333333"} />
+            <AntDesign name="plus" size={30} color={"white"} />
           </TouchableOpacity>
         </View>
       );
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     top: "88%",
     right: 10,
     height: 65,
-    backgroundColor: "#fffd54",
+    backgroundColor: "black",
     borderRadius: 100,
   },
 });
