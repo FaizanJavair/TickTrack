@@ -14,10 +14,11 @@ import moment from "moment-timezone";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import CustomCard from "../components/customCard";
 
+// Daily Forecast modal that displays daily weather forecast
 export default function DailyModal(props) {
   const [location, setlocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-
+  // calling the API for data
   useEffect(() => {
     // Async Function to check errors
     (async () => {
@@ -48,8 +49,8 @@ export default function DailyModal(props) {
         });
     })();
   }, []);
-  console.log(location);
 
+  // Error Handling
   if (errorMsg !== null) {
     //error occured
     return (
@@ -59,6 +60,7 @@ export default function DailyModal(props) {
       </View>
     );
   } else if (location !== null) {
+    // Rendering the data
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>

@@ -9,8 +9,10 @@ import {
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import Ionicons from "@expo/vector-icons/Ionicons";
-
+import { styles } from "../css/addHabitModalStyle";
+// Adding a habit screen
 export default class AddHabitModal extends React.Component {
+  // Colors for user to pick
   colors = [
     "#000000",
     "#28282B",
@@ -20,19 +22,19 @@ export default class AddHabitModal extends React.Component {
     "#708090",
     "#B2BEB5",
   ];
-
+  // Setting values and labels for Dropdown picker
   items = [
     { label: "Critical", value: "1" },
     { label: "High", value: "2" },
     { label: "Medium", value: "3" },
     { label: "Low", value: "4" },
   ];
-
+  // Types for dropdown picker
   types = [
     { label: "Break", value: "break" },
     { label: "Make", value: "make" },
   ];
-
+  // Setting states
   state = {
     name: "",
     color: this.colors[0],
@@ -43,7 +45,7 @@ export default class AddHabitModal extends React.Component {
     priorityValue: "4",
     habitType: "Break",
   };
-
+  // Called when form submitted to create habit
   createHabit = () => {
     const { name, color, priority, priorityValue, habitType, history } =
       this.state;
@@ -61,6 +63,7 @@ export default class AddHabitModal extends React.Component {
     this.props.closeModal();
   };
 
+  // Renders the colors for user to choose
   renderColors() {
     return this.colors.map((color) => {
       return (
@@ -72,6 +75,7 @@ export default class AddHabitModal extends React.Component {
       );
     });
   }
+  // Renders the form to add a habit
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -130,65 +134,3 @@ export default class AddHabitModal extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  closeButton: {
-    position: "absolute",
-    top: "7%",
-    left: "7%",
-  },
-  header: {
-    alignSelf: "stretch",
-    marginHorizontal: 40,
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: "600",
-    color: "black",
-    textAlign: "center",
-    marginBottom: "5%",
-  },
-  listInput: {
-    borderColor: "#dadae8",
-    borderStyle: "solid",
-    borderWidth: 1.5,
-    borderRadius: 12,
-    height: 50,
-    paddingHorizontal: "2%",
-  },
-  createText: {
-    color: "white",
-    fontWeight: "600",
-    fontSize: 15,
-  },
-  createButton: {
-    marginTop: "6%",
-    height: 50,
-    borderRadius: 12,
-    backgroundColor: "black",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  colorOptions: {
-    width: 36,
-    height: 36,
-    borderRadius: 10,
-  },
-  colorView: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: "6%",
-  },
-  picker: {
-    marginTop: "5%",
-    borderColor: "#dadae8",
-    borderStyle: "solid",
-    borderWidth: 1.5,
-    borderRadius: 12,
-  },
-});

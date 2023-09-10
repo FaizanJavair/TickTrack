@@ -1,0 +1,251 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Edit List Modal renders correctly 1`] = `
+<View
+  onLayout={[Function]}
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+      },
+      {
+        "paddingBottom": 0,
+      },
+    ]
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "left": "7%",
+        "opacity": 1,
+        "position": "absolute",
+        "top": "7%",
+      }
+    }
+  >
+    <Text />
+  </View>
+  <View
+    style={
+      {
+        "alignSelf": "stretch",
+        "marginHorizontal": 40,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "black",
+          "fontSize": 30,
+          "fontWeight": "600",
+          "marginBottom": "5%",
+          "textAlign": "center",
+        }
+      }
+    >
+      Edit Your Task List
+    </Text>
+    <TextInput
+      onChangeText={[Function]}
+      placeholderTextColor="gray"
+      style={
+        {
+          "borderColor": "#dadae8",
+          "borderRadius": 12,
+          "borderStyle": "solid",
+          "borderWidth": 1.5,
+          "height": 50,
+          "paddingHorizontal": "2%",
+        }
+      }
+      value="Drinking Water"
+    />
+    <View
+      style={
+        [
+          {
+            "width": "100%",
+          },
+          {
+            "zIndex": 5000,
+          },
+          {},
+        ]
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": false,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        forwardedRef={[Function]}
+        onClick={[Function]}
+        onLayout={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "backgroundColor": "#fff",
+            "borderColor": "#dadae8",
+            "borderRadius": 12,
+            "borderStyle": "solid",
+            "borderWidth": 1.5,
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginTop": "5%",
+            "minHeight": 50,
+            "opacity": 1,
+            "paddingHorizontal": 10,
+            "paddingVertical": 3,
+            "width": "100%",
+            "zIndex": 5000,
+          }
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "#000",
+                "flex": 1,
+              },
+              {},
+              false,
+              {},
+            ]
+          }
+        >
+          Select an item
+        </Text>
+        <View
+          style={
+            [
+              {
+                "marginLeft": 10,
+              },
+              {},
+            ]
+          }
+        >
+          <Image
+            source={1}
+            style={
+              [
+                {
+                  "height": 20,
+                  "width": 20,
+                },
+                {},
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#414a4c",
+          "borderRadius": 12,
+          "height": 50,
+          "justifyContent": "center",
+          "marginTop": "6%",
+          "opacity": 1,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "white",
+            "fontSize": 15,
+            "fontWeight": "600",
+          }
+        }
+      >
+        Update
+      </Text>
+    </View>
+  </View>
+</View>
+`;

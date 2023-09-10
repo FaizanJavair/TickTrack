@@ -1,8 +1,11 @@
+// Test data for tesing
 export default dataTemp = [
   {
     id: 1,
     name: "Plan a Party",
     color: "#414a4c",
+    priority: "High",
+    priorityValue: "2",
     todos: [
       {
         title: "Book food",
@@ -20,57 +23,42 @@ export default dataTemp = [
   },
   {
     id: 2,
-    name: "Errands",
-    color: "#71797E",
+    name: "Plan a Party",
+    color: "#414a4c",
+    priority: "High",
+    priorityValue: "2",
     todos: [
       {
-        title: "Wash Clothes",
+        title: "Book food",
         completed: false,
       },
       {
-        title: "Pick up grocery",
+        title: "Check water",
         completed: true,
       },
       {
-        title: "Make Lunch",
+        title: "Reserve a DJ",
         completed: false,
       },
     ],
   },
   {
     id: 3,
-    name: "My Homework",
-    color: "#36454F",
+    name: "Plan a Party",
+    color: "#414a4c",
+    priority: "High",
+    priorityValue: "2",
     todos: [
       {
-        title: "Maths",
+        title: "Book food",
         completed: false,
       },
       {
-        title: "Science",
+        title: "Check water",
         completed: true,
       },
       {
-        title: "History",
-        completed: false,
-      },
-    ],
-  },
-  {
-    id: 4,
-    name: "More Task",
-    color: "#28282B",
-    todos: [
-      {
-        title: "Wash Clothes",
-        completed: false,
-      },
-      {
-        title: "Pick up grocery",
-        completed: true,
-      },
-      {
-        title: "Make Lunch",
+        title: "Reserve a DJ",
         completed: false,
       },
     ],

@@ -11,18 +11,21 @@ import {
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import Ionicons from "@expo/vector-icons/Ionicons";
-
+import { styles } from "../css/editHabitModalStyle";
+// Editing the habit modal form
 export default function EditHabitModal(props) {
   const [habitName, setHabitName] = useState(props.habit.name);
   const [priority, setPriority] = useState(props.habit.priority);
   const [priorityValue, setPriorityValue] = useState(props.habit.priorityValue);
   const [open, setOpen] = useState(false);
+  // Drop down picker items
   items = [
     { label: "Critical", value: "1" },
     { label: "High", value: "2" },
     { label: "Medium", value: "3" },
     { label: "Low", value: "4" },
   ];
+  // Calling update function to update the data once submitted
   const update = () => {
     const habit = {
       name: habitName,
@@ -39,15 +42,13 @@ export default function EditHabitModal(props) {
       "Congrats! Your changes are saved",
       [
         {
-          text: "No",
-        },
-        {
-          text: "Yes",
+          text: "OK",
           onPress: props.closeModal,
         },
       ]
     );
   };
+  // Rendering the Form
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <TouchableOpacity style={styles.closeButton} onPress={props.closeModal}>
@@ -90,65 +91,3 @@ export default function EditHabitModal(props) {
     </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  closeButton: {
-    position: "absolute",
-    top: "7%",
-    left: "7%",
-  },
-  header: {
-    alignSelf: "stretch",
-    marginHorizontal: 40,
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: "600",
-    color: "black",
-    textAlign: "center",
-    marginBottom: "5%",
-  },
-  listInput: {
-    borderColor: "#dadae8",
-    borderStyle: "solid",
-    borderWidth: 1.5,
-    borderRadius: 12,
-    height: 50,
-    paddingHorizontal: "2%",
-  },
-  createText: {
-    color: "white",
-    fontWeight: "600",
-    fontSize: 15,
-  },
-  createButton: {
-    marginTop: "6%",
-    height: 50,
-    borderRadius: 12,
-    backgroundColor: "black",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  colorOptions: {
-    width: 36,
-    height: 36,
-    borderRadius: 10,
-  },
-  colorView: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: "6%",
-  },
-  picker: {
-    marginTop: "5%",
-    borderColor: "#dadae8",
-    borderStyle: "solid",
-    borderWidth: 1.5,
-    borderRadius: 12,
-  },
-});

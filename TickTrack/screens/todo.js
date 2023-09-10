@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  SafeAreaView,
   StyleSheet,
   View,
   TouchableOpacity,
@@ -12,15 +11,16 @@ import { StatusBar } from "expo-status-bar";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import TodoList from "./todolist";
 import ListModal from "../modals/listModal";
-
 import { auth, db } from "../database/firebase";
 
+// Initial Home Screen to show all the task list
 export default class Tasks extends React.Component {
   state = {
     addTodo: false,
     loading: true,
     lists: [],
   };
+  // Gets the data from the DB if user is found and logged in
   subscribe = () => {
     let user = auth.currentUser;
     if (user) {
@@ -29,6 +29,7 @@ export default class Tasks extends React.Component {
       return ref;
     }
   };
+  // Adds the add to the array to pass to different screens
   unsubscribe = () => {
     let user = auth.currentUser;
     if (user) {
@@ -48,14 +49,17 @@ export default class Tasks extends React.Component {
       });
     }
   };
+  // Adding a new list
   addList = (list) => {
     let ref = this.subscribe();
     ref.add(list);
   };
+  // Deleting existing List
   deleteList = (list) => {
     let ref = this.subscribe();
     ref.doc(list.id).delete();
   };
+  // Updating List
   updateTask = (list) => {
     let ref = this.subscribe();
     ref.doc(list.id).update(list);
@@ -66,9 +70,11 @@ export default class Tasks extends React.Component {
   componentWillUnmount = () => {
     this.unsubscribe();
   };
+  // Toggling thre modal that renders individual lists
   toggleModal = () => {
     this.setState({ addTodo: !this.state.addTodo });
   };
+  // This function is called to Display each list
   renderTasks = (task) => {
     return (
       <TodoList
@@ -79,6 +85,7 @@ export default class Tasks extends React.Component {
       ></TodoList>
     );
   };
+  // This call the previous addList to add the new list to the db
   addTask = (list) => {
     this.addList({
       name: list.name,
@@ -88,15 +95,17 @@ export default class Tasks extends React.Component {
       todos: [],
     });
   };
-
+  // Calls the previous UpdateTask
   updateList = (list) => {
     this.updateTask(list);
   };
+  // Edit list Handler
   editList = (list) => {
     let ref = this.subscribe();
 
     ref.doc(list.id).update(list);
   };
+  // Rendering the page and calling the component to render all the lists
   render() {
     if (this.state.loading == true) {
       <View style={styles.container}>

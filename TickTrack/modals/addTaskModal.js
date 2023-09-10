@@ -2,7 +2,6 @@ import React from "react";
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
   KeyboardAvoidingView,
   TextInput,
@@ -13,8 +12,10 @@ import uuid from "react-native-uuid";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment-timezone";
-
+import { styles } from "../css/addTaskModalStyle";
+// Adding Task to the list
 export default class AddTask extends React.Component {
+  // Setting states
   state = {
     newTodo: "",
     dueDateTime: "",
@@ -22,7 +23,7 @@ export default class AddTask extends React.Component {
     show: false,
     text: "",
   };
-
+  // Setting the date when selected
   onChange = (event, selectedDate) => {
     const currentDateTime = selectedDate || this.state.date;
 
@@ -32,19 +33,19 @@ export default class AddTask extends React.Component {
 
     let tempDate = new Date(currentDateTime);
     let ds = tempDate.getTime() / 1000;
-    console.log(ds);
+
     let t = moment.unix(ds).format("DD/MM/YYYY");
     let ft = moment.unix(ds).format("h:mm a");
 
     this.setState({ text: t + " | " + ft });
   };
-
+  // Toggling the show mode for datatimepicker
   showMode = () => {
     this.setState({
       show: !this.state.show,
     });
   };
-
+  // Add's the task to the list when form is submitted
   addTask = () => {
     if (this.state.newTodo == "") {
       return Alert.alert(
@@ -70,9 +71,8 @@ export default class AddTask extends React.Component {
       Keyboard.dismiss();
     }
   };
-
+  // Rendering the form to add a task
   render() {
-    console.log(this.state.dueDate);
     const list = this.props.list;
     return (
       <View style={styles.container}>
@@ -141,59 +141,3 @@ export default class AddTask extends React.Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  footer: {
-    paddingVertical: "5%",
-    alignItems: "center",
-  },
-  add: {
-    borderRadius: 12,
-    padding: 12,
-    width: "50%",
-  },
-  input: {
-    height: 40,
-    width: 330,
-    borderWidth: 2,
-    borderRadius: 12,
-    paddingHorizontal: 10,
-  },
-  homeTask: {
-    textAlign: "center",
-    color: "white",
-    fontWeight: "600",
-    fontSize: 15,
-  },
-  closeButton: {
-    position: "absolute",
-    top: "7%",
-    left: "7%",
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: "600",
-    color: "black",
-    textAlign: "center",
-    marginBottom: "5%",
-  },
-  button: {
-    fontSize: 15,
-    backgroundColor: "black",
-    padding: 8,
-    borderRadius: 10,
-  },
-  dateText: {
-    color: "white",
-    fontSize: 16,
-  },
-  date: {
-    marginTop: "2%",
-    marginLeft: "2%",
-    fontSize: 18,
-  },
-});

@@ -3,14 +3,9 @@ import {
   View,
   SafeAreaView,
   Text,
-  StyleSheet,
   TouchableOpacity,
   FlatList,
-  KeyboardAvoidingView,
-  TextInput,
-  Keyboard,
   Modal,
-  ScrollView,
   Alert,
 } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -19,12 +14,16 @@ import AddTask from "./addTaskModal";
 import EditListModal from "./editListModal";
 import EditTaskModal from "./editTaskModal";
 import moment from "moment-timezone";
+import { styles } from "../css/taskModalStyle";
+// Modal to view the list and all it's tasks
 export default class TaskModal extends React.Component {
+  // Setting states
   state = {
     addVisible: false,
     editTodo: false,
     editTask: false,
   };
+  // Toggling each modal that is in the page
   toggleAddModal() {
     this.setState({ addVisible: !this.state.addVisible });
   }
@@ -39,7 +38,7 @@ export default class TaskModal extends React.Component {
     list.todos[index].completed = !list.todos[index].completed;
     this.props.updateList(list);
   };
-
+  // Renders the list of completed tasks in the list
   renderCompletedTask = (task, index) => {
     if (task.completed) {
       return (
@@ -75,7 +74,7 @@ export default class TaskModal extends React.Component {
       );
     }
   };
-
+  // Handles the deleting of task
   deleteTask = (index) => {
     let list = this.props.list;
     return Alert.alert(
@@ -95,7 +94,7 @@ export default class TaskModal extends React.Component {
       ]
     );
   };
-
+  // Renders Remaining tasks in the list
   renderRemainingTask = (task, index) => {
     let fDate;
     let fTime;
@@ -104,8 +103,6 @@ export default class TaskModal extends React.Component {
 
       fDate = moment.unix(task.dueDateTime.seconds).format("DD/MM/YYYY");
       fTime = moment.unix(task.dueDateTime.seconds).format("h:mm A");
-      console.log(fDate);
-      console.log(fTime);
     } else {
       fDate = "None";
       fTime = "None";
@@ -207,7 +204,7 @@ export default class TaskModal extends React.Component {
       );
     }
   };
-
+  // handling the deleting of the list
   deleteList = (list) => {
     return Alert.alert(
       "Deleting Task List",
@@ -223,6 +220,7 @@ export default class TaskModal extends React.Component {
       ]
     );
   };
+  // Rendering the priority tags
   listTags = (list) => {
     tagColor = [
       { label: "Critical", value: "red" },
@@ -240,7 +238,7 @@ export default class TaskModal extends React.Component {
       }
     }
   };
-
+  // Rendering the List information Screen when the user clicks on any list on the home page
   render() {
     const list = this.props.list;
 
@@ -336,7 +334,7 @@ export default class TaskModal extends React.Component {
               renderItem={({ item, index }) =>
                 this.renderRemainingTask(item, index)
               }
-              keyExtractor={(item) => item.title}
+              keyExtractor={(item) => item.id}
               contentContainerStyle={{
                 paddingHorizontal: "5%",
                 paddingVertical: "2%",
@@ -363,7 +361,7 @@ export default class TaskModal extends React.Component {
               renderItem={({ item, index }) =>
                 this.renderCompletedTask(item, index)
               }
-              keyExtractor={(item) => item.title}
+              keyExtractor={(item) => item.id}
               contentContainerStyle={{
                 paddingHorizontal: "5%",
                 paddingVertical: "2%",
@@ -394,137 +392,3 @@ export default class TaskModal extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  closeButton: {
-    marginLeft: "5%",
-  },
-  section: {
-    flex: 1,
-    alignSelf: "stretch",
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    justifyContent: "space-between",
-    paddingLeft: "5%",
-    paddingTop: "2%",
-    paddingBottom: "2%",
-    borderBottomWidth: 10,
-  },
-  title: {
-    fontWeight: "600",
-    fontSize: 25,
-    width: 300,
-  },
-  subTitle: {
-    fontSize: 12,
-    color: "white",
-    fontWeight: "600",
-  },
-  tasks: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginLeft: "5%",
-    marginBottom: "3%",
-  },
-  tasksRemain: {
-    alignItems: "center",
-    marginBottom: "3%",
-  },
-  taskText: {
-    color: "black",
-    fontWeight: "700",
-    fontSize: 15,
-    marginLeft: "3%",
-    marginTop: "1%",
-  },
-  listTitle: {
-    fontWeight: "700",
-    fontSize: 15,
-    marginBottom: "2%",
-    marginTop: "3%",
-    marginLeft: "5%",
-    borderBottomWidth: 1,
-  },
-  footer: {
-    paddingHorizontal: "5%",
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  add: {
-    borderRadius: 12,
-    padding: 12,
-    width: "80%",
-    height: "5%",
-  },
-  floatingButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: 65,
-    position: "absolute",
-    top: "95%",
-    right: 20,
-    height: 65,
-    borderRadius: 100,
-  },
-
-  taskRow: {
-    flexDirection: "row",
-    width: "92%",
-    padding: 1,
-    justifyContent: "space-between",
-  },
-  subSection: {
-    flexDirection: "row",
-  },
-  tags: {
-    paddingHorizontal: "3%",
-    paddingVertical: "2%",
-    marginTop: "1%",
-    borderRadius: 8,
-    marginEnd: "2%",
-  },
-  taskExtra: {
-    flexDirection: "column",
-    marginLeft: "11%",
-  },
-  taskCard: {
-    backgroundColor: "white",
-    paddingVertical: "3%",
-    width: 350,
-    paddingHorizontal: "3%",
-    borderRadius: 12,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.08,
-    shadowRadius: 10,
-  },
-  editTag: {
-    paddingHorizontal: "3%",
-    paddingVertical: "2%",
-    marginTop: "2%",
-    borderRadius: 12,
-    width: 140,
-    marginEnd: "2%",
-  },
-  due: {
-    fontSize: 15,
-    justifyContent: "center",
-    fontWeight: 300,
-    marginLeft: "4%",
-    color: "white",
-  },
-  dueDate: {
-    fontSize: 14,
-    fontWeight: 300,
-  },
-});

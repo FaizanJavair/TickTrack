@@ -8,7 +8,7 @@ import Home from "../screens/Home";
 import TabNav from "./TabNavigation";
 
 const Stack = createStackNavigator();
-
+// Setting up stack navigation
 const StackNav = () => {
   return (
     <Stack.Navigator initialRouteName="Login">

@@ -1,25 +1,17 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  KeyboardAvoidingView,
-  TouchableOpacity,
-  TextInput,
-  Modal,
-} from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { View, Text, StyleSheet, TouchableOpacity, Modal } from "react-native";
 import HabitModal from "../modals/habitModal";
 
+// Renders all the habits on the habit.js
 export default class HabitList extends React.Component {
   state = {
     listVisible: false,
   };
-
+  // Toggling the next modal which is the viewing the individual habit
   toggleModal() {
     this.setState({ listVisible: !this.state.listVisible });
   }
-
+  // Habit priority tags
   listTags = (list) => {
     tagColor = [
       { label: "Critical", value: "red" },
@@ -39,14 +31,17 @@ export default class HabitList extends React.Component {
     }
   };
   render() {
+    // Getting the habit from props
     const habit = this.props.habit;
     var start = habit.startDate;
 
+    // Setting up appropriate dates using unix time
     const s = new Date(start.seconds * 1000);
     const startDate = s.toLocaleString();
     const t = new Date();
     var diffInTime = (t.getTime() - s.getTime()) / 1000;
 
+    // Handles difference of days, and hours spent for breaking habit
     const diffInDays = Math.floor(diffInTime / 86400);
 
     diffInTime -= diffInDays * 86400;
@@ -54,6 +49,7 @@ export default class HabitList extends React.Component {
 
     const history = [];
 
+    // Reversing the habit history to view it from recent to oldest
     habit.history
       .slice()
       .reverse()
@@ -61,6 +57,7 @@ export default class HabitList extends React.Component {
         history.push(x);
       });
 
+    //Rendering the the Habits and Toggling HabitModal which shows individual Habit
     return (
       <View style={styles.container}>
         <Modal
@@ -116,6 +113,7 @@ export default class HabitList extends React.Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",

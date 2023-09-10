@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Habit List renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "justifyContent": "center",
+    }
+  }
+>
+  <Modal
+    animationType="slide"
+    hardwareAccelerated={false}
+    onRequestClose={[Function]}
+    s={true}
+    visible={false}
+  />
+  <View
+    style={
+      [
+        {
+          "borderRadius": 15,
+          "height": 170,
+          "marginVertical": "2.5%",
+          "paddingHorizontal": "3%",
+          "paddingVertical": "2%",
+          "width": 350,
+        },
+        {
+          "backgroundColor": "#414a4c",
+        },
+      ]
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "borderRadius": 15,
+          "height": 170,
+          "marginVertical": "2.5%",
+          "opacity": 1,
+          "paddingHorizontal": "3%",
+          "paddingVertical": "2%",
+          "width": 350,
+        }
+      }
+    >
+      <View>
+        <Text
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          style={
+            {
+              "color": "white",
+              "fontSize": 25,
+              "fontWeight": 300,
+              "marginBottom": "2%",
+            }
+          }
+        >
+          Drinking Water
+        </Text>
+      </View>
+      <View
+        style={
+          {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "borderRadius": 10,
+                "flexDirection": "row",
+                "marginBottom": "2%",
+                "marginEnd": "2%",
+                "paddingHorizontal": "3%",
+                "paddingVertical": "2%",
+              },
+              {
+                "backgroundColor": "orange",
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "white",
+                "fontSize": 10,
+                "fontWeight": "800",
+              }
+            }
+          >
+            Priority: 
+          </Text>
+          <Text
+            style={
+              {
+                "color": "white",
+                "fontSize": 10,
+                "fontWeight": "800",
+              }
+            }
+          >
+            High
+          </Text>
+        </View>
+        <View
+          style={
+            [
+              {
+                "borderRadius": 10,
+                "flexDirection": "row",
+                "marginBottom": "2%",
+                "marginEnd": "2%",
+                "paddingHorizontal": "3%",
+                "paddingVertical": "2%",
+              },
+              {
+                "backgroundColor": "white",
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "color": "white",
+                  "fontSize": 10,
+                  "fontWeight": "800",
+                },
+                {
+                  "color": "black",
+                },
+              ]
+            }
+          >
+            Habit Type:
+          </Text>
+          <Text
+            style={
+              [
+                {
+                  "color": "white",
+                  "fontSize": 10,
+                  "fontWeight": "800",
+                },
+                {
+                  "color": "black",
+                },
+              ]
+            }
+          />
+        </View>
+      </View>
+      <Text
+        style={
+          {
+            "color": "white",
+            "fontSize": 15,
+            "fontWeight": 300,
+            "marginTop": "1%",
+          }
+        }
+      >
+        Started at 
+        09/09/2023, 4:01:34 am
+      </Text>
+    </View>
+  </View>
+</View>
+`;

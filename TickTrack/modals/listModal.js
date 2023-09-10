@@ -10,9 +10,10 @@ import {
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import Ionicons from "@expo/vector-icons/Ionicons";
-
+import { styles } from "../css/listModalStyle";
+// Modal for adding a new list to db
 export default class ListModal extends React.Component {
-  // Black,
+  // Colors for color picker
   colors = [
     "#000000",
     "#28282B",
@@ -22,14 +23,14 @@ export default class ListModal extends React.Component {
     "#708090",
     "#B2BEB5",
   ];
-
+  // Drop down items
   items = [
     { label: "Critical", value: "1" },
     { label: "High", value: "2" },
     { label: "Medium", value: "3" },
     { label: "Low", value: "4" },
   ];
-
+  // Setting states
   state = {
     name: "",
     color: this.colors[0],
@@ -38,7 +39,7 @@ export default class ListModal extends React.Component {
     priority: "Low",
     priorityValue: "4",
   };
-
+  // Called when form submitted that creates a new list
   createList = () => {
     if (this.state.name == "") {
       return Alert.alert(
@@ -59,7 +60,7 @@ export default class ListModal extends React.Component {
       this.props.closeModal();
     }
   };
-
+  // Renders colors
   renderColors() {
     return this.colors.map((color) => {
       return (
@@ -71,7 +72,7 @@ export default class ListModal extends React.Component {
       );
     });
   }
-
+  // Renders the form to add a new list
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -103,7 +104,6 @@ export default class ListModal extends React.Component {
               })
             }
             placeholder={this.state.priority}
-            // setValue={(value) => this.setState({ priority: value })}
           />
           <TouchableOpacity
             style={[
@@ -120,65 +120,3 @@ export default class ListModal extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  closeButton: {
-    position: "absolute",
-    top: "7%",
-    left: "7%",
-  },
-  header: {
-    alignSelf: "stretch",
-    marginHorizontal: 40,
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: "600",
-    color: "black",
-    textAlign: "center",
-    marginBottom: "5%",
-  },
-  listInput: {
-    borderColor: "#dadae8",
-    borderStyle: "solid",
-    borderWidth: 1.5,
-    borderRadius: 12,
-    height: 50,
-    paddingHorizontal: "2%",
-  },
-  createText: {
-    color: "white",
-    fontWeight: "600",
-    fontSize: 15,
-  },
-  createButton: {
-    marginTop: "6%",
-    height: 50,
-    borderRadius: 12,
-    backgroundColor: "black",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  colorOptions: {
-    width: 36,
-    height: 36,
-    borderRadius: 10,
-  },
-  colorView: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: "6%",
-  },
-  picker: {
-    marginTop: "5%",
-    borderColor: "#dadae8",
-    borderStyle: "solid",
-    borderWidth: 1.5,
-    borderRadius: 12,
-  },
-});

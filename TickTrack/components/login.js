@@ -12,6 +12,7 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { auth } from "../database/firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { styles } from "../css/loginStyle";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -28,7 +29,7 @@ const Login = ({ navigation }) => {
       setLoggedIn(false);
     }
   });
-
+  // Handling login for app when form submitted
   const handleLogin = () => {
     setError("");
     if (!email) {
@@ -47,7 +48,7 @@ const Login = ({ navigation }) => {
       })
       .catch((error) => alert(error.message));
   };
-
+  // Rendering the login form
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior="padding">
@@ -98,72 +99,4 @@ const Login = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 25,
-    fontWeight: "300",
-    color: "black",
-    textAlign: "center",
-    marginTop: "5%",
-    marginBottom: "5%",
-  },
-  icon: {
-    width: 80,
-    height: 80,
-    alignSelf: "center",
-  },
-  section: {
-    flexDirection: "row",
-    height: 50,
-    width: "100%",
-    paddingHorizontal: "10%",
-    margin: "2%",
-  },
-  inputStyle: {
-    flex: 1,
-    color: "black",
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: "#dadae8",
-  },
-  logButton: {
-    backgroundColor: "black",
-    width: "60%",
-    marginHorizontal: "20%",
-    borderRadius: 12,
-    marginVertical: "3%",
-    height: 45,
-  },
-  logText: {
-    color: "white",
-    paddingVertical: 12,
-    justifyContent: "center",
-    fontSize: 18,
-    fontWeight: 400,
-    textAlign: "center",
-  },
-  errorText: {
-    color: "red",
-    textAlign: "center",
-    fontSize: 14,
-  },
-  linkText: {
-    color: "gray",
-    paddingVertical: 8,
-    justifyContent: "center",
-    fontSize: 12,
-    fontWeight: 500,
-    textAlign: "center",
-    textDecorationLine: "underline",
-  },
-});
 export default Login;

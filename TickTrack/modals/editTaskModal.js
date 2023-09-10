@@ -12,7 +12,10 @@ import {
 import DropDownPicker from "react-native-dropdown-picker";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { styles } from "../css/editTaskModalStyle";
+import moment from "moment";
 
+// Editing the tasks in the list Screen
 export default function EditTaskModal(props) {
   const [taskName, setTaskName] = useState(props.task.title);
   const [oldName, setOldName] = useState(props.task.title);
@@ -21,7 +24,7 @@ export default function EditTaskModal(props) {
   const [date, setDate] = useState(due);
   const [text, setText] = useState(props.task.text);
   const [show, setShow] = useState(false);
-
+  // Calling the update function when submitted
   const update = () => {
     const list = props.list;
     let todo = {};
@@ -55,6 +58,7 @@ export default function EditTaskModal(props) {
     ]);
   };
 
+  // Onchange function handling dates
   const onChange = (event, selectedDate) => {
     const currentDateTime = selectedDate;
 
@@ -64,7 +68,7 @@ export default function EditTaskModal(props) {
     setDueDateTime(currentDateTime);
 
     let ds = tempDate.getTime() / 1000;
-    console.log(ds);
+
     let t = moment.unix(ds).format("DD/MM/YYYY");
     let ft = moment.unix(ds).format("h:mm a");
 
@@ -73,7 +77,7 @@ export default function EditTaskModal(props) {
   const showMode = () => {
     setShow(!show);
   };
-
+  // Rendering the Form to update the task
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <TouchableOpacity style={styles.closeButton} onPress={props.closeModal}>
@@ -130,80 +134,3 @@ export default function EditTaskModal(props) {
     </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  closeButton: {
-    position: "absolute",
-    top: "7%",
-    left: "7%",
-  },
-  header: {
-    alignSelf: "stretch",
-    marginHorizontal: 40,
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: "600",
-    color: "black",
-    textAlign: "center",
-    marginBottom: "5%",
-  },
-  listInput: {
-    borderColor: "#dadae8",
-    borderStyle: "solid",
-    borderWidth: 1.5,
-    borderRadius: 12,
-    height: 50,
-    paddingHorizontal: "2%",
-  },
-  createText: {
-    color: "white",
-    fontWeight: "600",
-    fontSize: 15,
-  },
-  createButton: {
-    marginTop: "6%",
-    height: 50,
-    borderRadius: 12,
-    backgroundColor: "black",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  colorOptions: {
-    width: 36,
-    height: 36,
-    borderRadius: 10,
-  },
-  colorView: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: "6%",
-  },
-  picker: {
-    marginTop: "5%",
-    borderColor: "#dadae8",
-    borderStyle: "solid",
-    borderWidth: 1.5,
-    borderRadius: 12,
-  },
-  button: {
-    fontSize: 15,
-    backgroundColor: "black",
-    padding: 8,
-    borderRadius: 10,
-  },
-  dateText: {
-    color: "white",
-    fontSize: 16,
-  },
-  date: {
-    marginTop: "2%",
-    marginLeft: "2%",
-    fontSize: 18,
-  },
-});

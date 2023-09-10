@@ -1,0 +1,218 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Custom Card renders correctly 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "white",
+      "borderRadius": 12,
+      "flexDirection": "row",
+      "marginBottom": "3%",
+      "padding": "4%",
+      "shadowColor": "#000",
+      "shadowOffset": {
+        "height": 4,
+        "width": 0,
+      },
+      "shadowOpacity": 0.1,
+      "shadowRadius": 12,
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "flex": 3,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "black",
+          "fontSize": 45,
+          "fontWeight": "100",
+          "marginLeft": "2%",
+          "marginTop": "4%",
+        }
+      }
+    >
+      67
+      °
+    </Text>
+    <Text
+      style={
+        {
+          "color": "black",
+          "fontSize": 22,
+          "fontWeight": "300",
+          "marginBottom": "3%",
+          "marginLeft": "2%",
+          "marginTop": "3%",
+          "textTransform": "capitalize",
+        }
+      }
+    >
+      Something
+    </Text>
+    <View
+      style={
+        {
+          "flexDirection": "row",
+          "marginTop": "2%",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+            "marginBottom": "2%",
+            "marginLeft": "2%",
+          }
+        }
+      >
+        <Text />
+        <Text
+          style={
+            {
+              "color": "black",
+              "fontSize": 16,
+              "fontWeight": "300",
+              "marginBottom": "2%",
+              "marginEnd": "2%",
+              "marginStart": "2%",
+            }
+          }
+        >
+          79
+          %
+        </Text>
+      </View>
+      <View
+        style={
+          {
+            "flexDirection": "row",
+            "marginBottom": "2%",
+            "marginLeft": "2%",
+          }
+        }
+      >
+        <Text />
+        <Text
+          style={
+            {
+              "color": "black",
+              "fontSize": 16,
+              "fontWeight": "300",
+              "marginBottom": "2%",
+              "marginEnd": "2%",
+              "marginStart": "2%",
+            }
+          }
+        >
+          42
+          %
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        {
+          "flexDirection": "row",
+          "marginTop": "2%",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+            "marginBottom": "2%",
+            "marginLeft": "2%",
+          }
+        }
+      >
+        <Text />
+        <Text
+          style={
+            {
+              "color": "black",
+              "fontSize": 16,
+              "fontWeight": "300",
+              "marginBottom": "2%",
+              "marginEnd": "2%",
+              "marginStart": "2%",
+            }
+          }
+        >
+          2
+           km/h
+        </Text>
+      </View>
+      <View
+        style={
+          {
+            "flexDirection": "row",
+            "marginBottom": "2%",
+            "marginLeft": "2%",
+          }
+        }
+      >
+        <Text />
+        <Text
+          style={
+            {
+              "color": "black",
+              "fontSize": 16,
+              "fontWeight": "300",
+              "marginBottom": "2%",
+              "marginEnd": "2%",
+              "marginStart": "2%",
+            }
+          }
+        >
+          8
+           hPa
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "width": "30%",
+      }
+    }
+  >
+    <Image
+      source={
+        {
+          "uri": "http://openweathermap.org/img/wn/01n@4x.png",
+        }
+      }
+      style={
+        {
+          "height": 100,
+          "tintColor": "#28282B",
+          "width": 100,
+        }
+      }
+    />
+    <Text
+      style={
+        {
+          "color": "black",
+          "fontSize": 14,
+          "fontWeight": "400",
+          "marginBottom": "10%",
+          "marginLeft": "22%",
+        }
+      }
+    >
+      1221212
+    </Text>
+  </View>
+</View>
+`;

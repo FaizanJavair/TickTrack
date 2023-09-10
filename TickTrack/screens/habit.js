@@ -13,13 +13,14 @@ import AddHabitModal from "../modals/addHabitModal";
 import HabitList from "./habitList";
 import { auth, db } from "../database/firebase";
 
+// Habit screen that handles getting the data and display all the habits
 export default class Habits extends React.Component {
   state = {
     addHabit: false,
     loading: true,
     habits: [],
   };
-
+  // Gets the habits if the user is logged in
   subscribe = () => {
     let user = auth.currentUser;
     if (user) {
@@ -28,6 +29,7 @@ export default class Habits extends React.Component {
       return ref;
     }
   };
+  // gets the data from the habits and adds it to the array
   unsubscribe = () => {
     let user = auth.currentUser;
     if (user) {
@@ -51,11 +53,11 @@ export default class Habits extends React.Component {
   componentWillUnmount = () => {
     this.unsubscribe();
   };
-
+  // Toggling the the modal
   toggleModal = () => {
     this.setState({ addHabit: !this.state.addHabit });
   };
-
+  // Called to render all the habits by sending it the habits array
   renderHabits = (habit) => {
     return (
       <HabitList
@@ -66,12 +68,12 @@ export default class Habits extends React.Component {
       ></HabitList>
     );
   };
-
+  // Adds a new habit in the list
   addList = (habit) => {
     let ref = this.subscribe();
     ref.add(habit);
   };
-
+  // This calls the previous addList function and passes the appropriate values
   addHabit = (habit) => {
     let date = new Date();
 
@@ -85,6 +87,7 @@ export default class Habits extends React.Component {
       history: [],
     });
   };
+  // Updating the data
   updateHabitData = (habit) => {
     let ref = this.subscribe();
     ref.doc(habit.id).update(habit);
@@ -92,16 +95,18 @@ export default class Habits extends React.Component {
   updateHabit = (habit) => {
     this.updateHabitData(habit);
   };
+  // Deleting the data
   deleteHabit = (habit) => {
     let ref = this.subscribe();
     ref.doc(habit.id).delete();
   };
+  // Editing the habit
   editHabit = (habit) => {
     let ref = this.subscribe();
 
     ref.doc(habit.id).update(habit);
   };
-
+  // Rendering habit home page which eventually also calls the modal
   render() {
     if (this.state.loading == true) {
       <SafeAreaView style={styles.container}>

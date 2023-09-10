@@ -8,7 +8,7 @@ import Habits from "../screens/habit";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Tab = createBottomTabNavigator();
-
+// Setting up tab navigation
 const TabNav = () => {
   return (
     <Tab.Navigator
