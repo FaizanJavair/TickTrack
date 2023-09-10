@@ -43,7 +43,7 @@ const Register = ({ navigation }) => {
             .updateProfile({
               displayName: username,
             })
-            .then(() => navigation.navigate("Login"))
+            .then(() => navigation.navigate("Home"))
             .catch((error) => {
               alert(error);
               console.error(error);
